@@ -1,1 +1,2 @@
-# wakmusic_V2-1
+# wakmusic-client
+WAKTAVERSE Music Frontend
