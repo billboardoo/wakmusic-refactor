@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import { loginTypeInfo } from "./LoginTypeInfo";
 import LoginBox from "./LoginBox";
 import * as S from "./styled";
 
-const LoginModal = (props) => {
+const LoginModal = (props: any) => {
+  const { sendModal } = props;
+  const backgroundRef = useRef();
+
   return (
-    <S.Container onClick={(e) => props.sendModal(e)}>
+    <S.Container onClick={sendModal} ref={backgroundRef}>
       <S.ModalBox>
         <S.Title>로그인</S.Title>
         <S.SubTitle>계정 로그인 방법을 선택해 주세요.</S.SubTitle>

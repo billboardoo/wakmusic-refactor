@@ -62,8 +62,10 @@ function Header(props: HeaderProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const sendModal = (e) => {
-    if (!e || e?.target.className.startsWith("sc-bczRLJ")) setModal(!modal);
+  const sendModal = (e: React.MouseEvent<HTMLElement>) => {
+    if (e?.currentTarget.className.startsWith("sc-bcXHqe") || !modal) {
+      setModal(!modal);
+    }
     const body = document.getElementsByTagName("body")[0];
     if (modal) body.style.overflow = "";
     else body.style.overflow = "hidden";
@@ -97,7 +99,7 @@ function Header(props: HeaderProps) {
 
   return (
     <>
-      {modal ? <LoginModal sendModal={sendModal} /> : null}
+      {modal ? <LoginModal sendModal={sendModal} /> : <></>}
       <_HeaderWrap>
         <_Header>
           <Link to="/" className="logo">
@@ -277,7 +279,7 @@ const _HeaderWrap = styled.div`
 
 const _Header = styled.div`
   position: relative;
-  width: 70vw;
+  width: 65vw;
   height: 80px;
   display: flex;
   align-items: center;
