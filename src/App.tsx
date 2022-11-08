@@ -19,9 +19,7 @@ import Header from "./components/Header";
 // import AddMusic from "./pages/AddMusic";
 // import GetArtistPage from "./components/Artists/GetArtistPage";
 
-interface userInfoType {
-
-}
+interface userInfoType {}
 
 function App() {
   const [userInfo, setUserInfo] = useState();

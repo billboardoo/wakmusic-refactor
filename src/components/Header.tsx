@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../images/logo.png";
+import logo from "../assets/imgs/Logo/DefaultLogo.png";
 import burger from "../images/burger.png";
 import axios from "axios";
 import LoginModal from "./Login/LoginModal";
@@ -88,6 +88,7 @@ function Header(props: any) {
   };
 
   if (loading) return <></>;
+
   return (
     <>
       <div id="header-wrap">
@@ -117,7 +118,7 @@ function Header(props: any) {
               </Link>
               <div id="right-divider" />
               {!props.userInfo ? (
-                <div className="nav-item" onClick={() => sendModal()}>
+                <div className="nav-item" onClick={sendModal}>
                   {getEllipse()}LOGIN
                 </div>
               ) : (
@@ -171,8 +172,8 @@ function Header(props: any) {
             {!props.userInfo ? (
               <div
                 className="nav-item"
-                onClick={() => {
-                  sendModal();
+                onClick={(e) => {
+                  sendModal(e);
                   enableMenu();
                 }}
               >
