@@ -10,7 +10,7 @@ import "./stylesheets/artist.css";
 // import Teams from "./pages/Teams";
 // import Charts from "./pages/Charts";
 // import NotFound from "./pages/NotFound";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 // import Player from "./pages/Player";
 // import MyPage from "./pages/MyPage";
 // import Support from "./pages/Support";
@@ -19,10 +19,16 @@ import Header from "./components/Header";
 // import AddMusic from "./pages/AddMusic";
 // import GetArtistPage from "./components/Artists/GetArtistPage";
 
-interface userInfoType {}
+interface userInfoType {
+  name: string;
+  id: string;
+  platform: "google" | "apple" | "naver";
+  profile: string;
+  first: boolean;
+}
 
 function App() {
-  const [userInfo, setUserInfo] = useState();
+  const [userInfo, setUserInfo] = useState<userInfoType>();
 
   return (
     <>

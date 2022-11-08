@@ -1,32 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
+import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../assets/imgs/Logo/DefaultLogo.png";
-import burger from "../images/burger.png";
+// import { useQuery } from "react-query";
+import { NavList } from "./NavList";
+import logo from "../../assets/imgs/Logo/DefaultLogo.png";
+import burger from "../../assets/imgs/Etc/burger.png";
+import HeaderCircle from "../../assets/svgs/Etc/HeaderCircle.svg";
+import HeaderProfileEtc from "../../assets/svgs/Etc/HeaderProfileEtc.svg";
 import axios from "axios";
-import LoginModal from "./Login/LoginModal";
+import LoginModal from "../Login/LoginModal";
 
-function Header(props: any) {
-  const {} = props;
+interface userInfoType {
+  name: string;
+  id: string;
+  platform: "google" | "apple" | "naver";
+  profile: string;
+  first: boolean;
+}
+
+interface HeaderProps {
+  userInfo: userInfoType;
+  setUserInfo: Dispatch<SetStateAction<userInfoType>>;
+}
+
+function Header(props: HeaderProps) {
+  const { userInfo, setUserInfo } = props;
   const location = useLocation();
-  const [loading, setLoading] = useState(false);
-  const [modal, setModal] = useState(false);
-  const [menu, setMenu] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [modal, setModal] = useState<boolean>(false);
+  const [menu, setMenu] = useState<boolean>(false);
 
-  function getEllipse() {
-    return (
-      <div className="ellipse_1">
-        <svg
-          width="6"
-          height="6"
-          viewBox="0 0 6 6"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle cx="3" cy="3" r="3" fill="#F4FF81" />
-        </svg>
-      </div>
-    );
-  }
+  const getUserInfo = () => {
+    return axios.get("/api/auth");
+  };
 
   useEffect(() => {
     const path = location.pathname.split("/")[1];
@@ -40,22 +46,19 @@ function Header(props: any) {
   });
 
   useEffect(() => {
-    setLoading(true);
-    axios.get("/api/auth").then((i) => {
-      if (i.data.status === 200) {
-        let data = i.data;
-        props.setUserInfo({
-          name: data.displayName
-            ? data.displayName
-            : "애플" + data.sub.split(".")[2],
-          id: data.id ? data.id : data.sub,
-          platform: data.provider ? data.provider : "apple",
-          profile: data.profile,
-          first: data.first,
-        });
-      }
-    });
-    setLoading(false);
+    // setLoading(true);
+    // if (userInfoQuery.isError == false) {
+    // setUserInfo({
+    //   name: data.displayName
+    //     ? data.displayName
+    //     : "애플" + data.sub.split(".")[2],
+    //   id: data.id ? data.id : data.sub,
+    //   platform: data.provider ? data.provider : "apple",
+    //   profile: data.profile,
+    //   first: data.first,
+    // });
+    // }
+    // setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -83,44 +86,54 @@ function Header(props: any) {
   const setLogo = () => {
     const now = new Date();
     let hour = now.getHours();
-    if ((hour === 22 || hour === 10) && now.getMinutes() === 8) return burger;
-    else return logo;
+    if ((hour === 22 || hour === 10) && now.getMinutes() === 8) {
+      return burger;
+    } else {
+      return logo;
+    }
   };
 
   if (loading) return <></>;
 
   return (
     <>
-      <div id="header-wrap">
-        <div id="header">
+      {modal ? <LoginModal sendModal={sendModal} /> : null}
+      <_HeaderWrap>
+        <_Header>
           <Link to="/" className="logo">
             <img src={setLogo()} alt="" />
           </Link>
-          <div className="nav-bar">
-            <Link to="/charts" className="nav-item" id="charts">
-              {getEllipse()}CHARTS
-            </Link>
-            <Link to="/albums" className="nav-item" id="albums">
-              {getEllipse()}ALBUMS
-            </Link>
-            <Link to="/artists" className="nav-item" id="artists">
-              {getEllipse()}ARTISTS
-            </Link>
-            <Link to="/news" className="nav-item" id="news">
-              {getEllipse()}NEWS
-            </Link>
-            <Link to="/teams" className="nav-item" id="teams">
-              {getEllipse()}TEAMS
-            </Link>
-            <div className="bar-right">
-              <Link to="/support" className="nav-item" id="support">
-                {getEllipse()}SUPPORT
+          <_NavLayout>
+            {NavList.map((item, index) => {
+              return (
+                <Link
+                  to={item.path}
+                  style={{ textDecoration: "none" }}
+                  key={index}
+                >
+                  <_NavBox>
+                    <_NavCircle src={HeaderCircle} />
+                    <_NavText>{item.value}</_NavText>
+                  </_NavBox>
+                </Link>
+              );
+            })}
+            <_BarRight>
+              <Link
+                to="/mypage"
+                style={{ fontSize: "15px", textDecoration: "none" }}
+              >
+                <_NavBox>
+                  <_NavCircle src={HeaderCircle} />
+                  <_NavText>SUPPROT</_NavText>
+                </_NavBox>
               </Link>
-              <div id="right-divider" />
-              {!props.userInfo ? (
-                <div className="nav-item" onClick={sendModal}>
-                  {getEllipse()}LOGIN
-                </div>
+              <_LoginLine />
+              {!userInfo ? (
+                <_NavBox onClick={sendModal}>
+                  <_NavCircle src={HeaderCircle} />
+                  <_NavText>LOGIN</_NavText>
+                </_NavBox>
               ) : (
                 <div id="profile-area">
                   <div>
@@ -132,19 +145,7 @@ function Header(props: any) {
                   </div>
                   <div className="profile-name">{props.userInfo.name}</div>
                   <div id="profile-hover">
-                    <svg
-                      id="hover-svg"
-                      width="7"
-                      height="6"
-                      viewBox="0 0 7 6"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M3.06699 0.75C3.25944 0.416667 3.74056 0.416667 3.93301 0.75L6.09808 4.5C6.29053 4.83333 6.04996 5.25 5.66506 5.25H1.33494C0.950036 5.25 0.709474 4.83333 0.901924 4.5L3.06699 0.75Z"
-                        fill="#E3E5EB"
-                      />
-                    </svg>
+                    <img src={HeaderProfileEtc} />
                     <Link to="/mypage" className="profile-item">
                       MYPAGE
                     </Link>
@@ -154,9 +155,9 @@ function Header(props: any) {
                   </div>
                 </div>
               )}
-            </div>
-          </div>
-        </div>
+            </_BarRight>
+          </_NavLayout>
+        </_Header>
         <div id="burger-btn" onClick={() => enableMenu()}>
           <div />
           <div />
@@ -193,10 +194,12 @@ function Header(props: any) {
                 </div>
                 <Link
                   to="/mypage"
-                  className="nav-item"
-                  style={{ fontSize: "15px" }}
+                  style={{ fontSize: "15px", textDecoration: "none" }}
                 >
-                  MYPAGE
+                  <_NavBox>
+                    <_NavCircle src={HeaderCircle} />
+                    <_NavText>SUPPROT</_NavText>
+                  </_NavBox>
                 </Link>
                 <a
                   href="/logout"
@@ -258,10 +261,82 @@ function Header(props: any) {
             </Link>
           </div>
         </div>
-      </div>
-      {modal ? <LoginModal sendModal={sendModal} /> : null}
+      </_HeaderWrap>
     </>
   );
 }
+
+const _HeaderWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #080f34;
+  width: 100vw;
+  height: 80px;
+`;
+
+const _Header = styled.div`
+  position: relative;
+  width: 70vw;
+  height: 80px;
+  display: flex;
+  align-items: center;
+`;
+
+const _BarRight = styled.div`
+  position: absolute;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
+
+const _NavLayout = styled.div`
+  display: flex;
+  gap: 40px;
+  margin-left: 40px;
+`;
+
+const _NavBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  &:hover {
+    img {
+      opacity: 1;
+    }
+  }
+`;
+
+const _NavCircle = styled.img`
+  transition: all 0.2s;
+  position: absolute;
+  top: -10px;
+  opacity: 0;
+`;
+
+const _LoginLine = styled.div`
+  width: 1px;
+  height: 16px;
+  border-radius: 10px;
+  background-color: #6b6f85;
+`;
+
+const _NavText = styled.p`
+  transition: color 0.2s;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.2s;
+  margin: 0px;
+  text-decoration: none;
+
+  cursor: pointer;
+  &:hover {
+    color: #00f3f3;
+  }
+`;
 
 export default Header;
