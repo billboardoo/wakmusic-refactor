@@ -26,6 +26,7 @@ interface HeaderProps {
 function Header(props: HeaderProps) {
   const { userInfo, setUserInfo } = props;
   const location = useLocation();
+  const [selectMenu, setSelectMenu] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
   const [menu, setMenu] = useState<boolean>(false);
@@ -35,14 +36,8 @@ function Header(props: HeaderProps) {
   };
 
   useEffect(() => {
-    const path = location.pathname.split("/")[1];
-    const items = document.getElementsByClassName("nav-item");
-    const selected = document.getElementById(path);
-    for (let i = 0; i < items.length; i++) {
-      if (selected && items[i].id === path)
-        items[i].className = "nav-item selected";
-      else items[i].className = "nav-item";
-    }
+    const pathName: string = location.pathname;
+    setSelectMenu(pathName);
   });
 
   useEffect(() => {
@@ -62,8 +57,9 @@ function Header(props: HeaderProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const sendModal = (e: React.MouseEvent<HTMLElement>) => {
-    if (e?.currentTarget.className.startsWith("sc-bcXHqe") || !modal) {
+  const sendModal = (e: any) => {
+    console.log(e.target);
+    if (e?.target.className.startsWith("sc-bcXHqe") || !modal) {
       setModal(!modal);
     }
     const body = document.getElementsByTagName("body")[0];
@@ -85,16 +81,6 @@ function Header(props: HeaderProps) {
     }
   };
 
-  const setLogo = () => {
-    const now = new Date();
-    let hour = now.getHours();
-    if ((hour === 22 || hour === 10) && now.getMinutes() === 8) {
-      return burger;
-    } else {
-      return logo;
-    }
-  };
-
   if (loading) return <></>;
 
   return (
@@ -103,7 +89,7 @@ function Header(props: HeaderProps) {
       <_HeaderWrap>
         <_Header>
           <Link to="/" className="logo">
-            <img src={setLogo()} alt="" />
+            <img src={logo} alt="" />
           </Link>
           <_NavLayout>
             {NavList.map((item, index) => {
@@ -113,28 +99,25 @@ function Header(props: HeaderProps) {
                   style={{ textDecoration: "none" }}
                   key={index}
                 >
-                  <_NavBox>
+                  <_NavBox current={selectMenu == item.path}>
                     <_NavCircle src={HeaderCircle} />
-                    <_NavText>{item.value}</_NavText>
+                    <_NavButton name={`${index}`}>{item.value}</_NavButton>
                   </_NavBox>
                 </Link>
               );
             })}
             <_BarRight>
-              <Link
-                to="/mypage"
-                style={{ fontSize: "15px", textDecoration: "none" }}
-              >
-                <_NavBox>
+              <Link to="/support" style={{ textDecoration: "none" }}>
+                <_NavBox current={selectMenu == "/support"}>
                   <_NavCircle src={HeaderCircle} />
-                  <_NavText>SUPPROT</_NavText>
+                  <_NavButton>SUPPROT</_NavButton>
                 </_NavBox>
               </Link>
               <_LoginLine />
               {!userInfo ? (
-                <_NavBox onClick={sendModal}>
+                <_NavBox current={false} onClick={sendModal}>
                   <_NavCircle src={HeaderCircle} />
-                  <_NavText>LOGIN</_NavText>
+                  <_NavButton>LOGIN</_NavButton>
                 </_NavBox>
               ) : (
                 <div id="profile-area">
@@ -198,9 +181,9 @@ function Header(props: HeaderProps) {
                   to="/mypage"
                   style={{ fontSize: "15px", textDecoration: "none" }}
                 >
-                  <_NavBox>
+                  <_NavBox current={false}>
                     <_NavCircle src={HeaderCircle} />
-                    <_NavText>SUPPROT</_NavText>
+                    <_NavButton>SUPPROT</_NavButton>
                   </_NavBox>
                 </Link>
                 <a
@@ -299,15 +282,30 @@ const _NavLayout = styled.div`
   margin-left: 40px;
 `;
 
-const _NavBox = styled.div`
+interface NavBoxProps {
+  current: boolean;
+}
+
+const _NavBox = styled.div<NavBoxProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
 
+  img {
+    opacity: ${(props) => (props.current ? 1 : 0)};
+  }
+
+  button {
+    color: ${(props) => (props.current ? "#00f3f3" : "#ffffff")};
+  }
+
   &:hover {
     img {
       opacity: 1;
+    }
+    button {
+      color: #00f3f3;
     }
   }
 `;
@@ -326,19 +324,19 @@ const _LoginLine = styled.div`
   background-color: #6b6f85;
 `;
 
-const _NavText = styled.p`
+const _NavButton = styled.button`
   transition: color 0.2s;
   color: white;
   text-decoration: none;
   font-size: 18px;
+  font-weight: 400;
   transition: color 0.2s;
+  background: none;
+  border: none;
   margin: 0px;
   text-decoration: none;
-
+  padding: 0px;
   cursor: pointer;
-  &:hover {
-    color: #00f3f3;
-  }
 `;
 
 export default Header;

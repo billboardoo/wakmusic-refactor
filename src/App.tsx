@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import GlobalStyle from "./GlobalStyle";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./stylesheets/index.css";
 import "./stylesheets/main.css";
@@ -32,9 +33,11 @@ function App() {
 
   return (
     <>
+      <GlobalStyle />
       <Router>
         <Header userInfo={userInfo} setUserInfo={setUserInfo} />
         <Routes>
+          <Route path="/" element={<div />} />
           {/* <Route path="/" element={<Main />} />
           <Route path="/news" element={<News />} />
           <Route path="/artists" element={<Artists />} />
