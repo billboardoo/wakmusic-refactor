@@ -928,32 +928,8 @@
   padding-right: 0 !important;
 }
 
-#profile-area {
-  display: flex;
-  margin-left: 115px;
-  margin-top: -5px;
-  gap: 10px;
-  position: absolute;
-  cursor: pointer;
-  padding-bottom: 80px;
-  z-index: 333;
-}
 
-.profile-image {
-  width: 32px;
-  border-radius: 99px;
-}
 
-.profile-name {
-  color: white;
-  font-size: 18px;
-  font-weight: 500;
-  max-width: 150px;
-  margin-top: 6px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
 
 #profile-hover {
   position: absolute;

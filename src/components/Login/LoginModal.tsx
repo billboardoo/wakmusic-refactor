@@ -5,7 +5,7 @@ import * as S from "./styled";
 
 const LoginModal = (props: any) => {
   const { sendModal } = props;
-  const backgroundRef = useRef();
+  const backgroundRef = useRef<HTMLDivElement>();
 
   const closeModal = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget == backgroundRef.current) {

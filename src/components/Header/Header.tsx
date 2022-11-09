@@ -103,42 +103,39 @@ function Header(props: HeaderProps) {
                 </Link>
               );
             })}
-            <_BarRight>
-              <Link to="/support" style={{ textDecoration: "none" }}>
-                <_NavBox current={selectMenu == "/support"}>
-                  <_NavCircle src={HeaderCircle} />
-                  <_NavButton>SUPPROT</_NavButton>
-                </_NavBox>
-              </Link>
-              <_LoginLine />
-              {!userInfo ? (
-                <_NavBox current={false} onClick={sendModal}>
-                  <_NavCircle src={HeaderCircle} />
-                  <_NavButton>LOGIN</_NavButton>
-                </_NavBox>
-              ) : (
-                <div id="profile-area">
-                  <div>
-                    <img
-                      src={`/static/profile/${props.userInfo.profile}.png`}
-                      alt=""
-                      className="profile-image"
-                    />
-                  </div>
-                  <div className="profile-name">{props.userInfo.name}</div>
-                  <div id="profile-hover">
-                    <img src={HeaderProfileEtc} />
-                    <Link to="/mypage" className="profile-item">
-                      MYPAGE
-                    </Link>
-                    <a href="/logout" className="profile-item">
-                      LOGOUT
-                    </a>
-                  </div>
+          </_NavLayout>{" "}
+          <_BarRight>
+            <Link to="/support" style={{ textDecoration: "none" }}>
+              <_NavBox current={selectMenu == "/support"}>
+                <_NavCircle src={HeaderCircle} />
+                <_NavButton>SUPPROT</_NavButton>
+              </_NavBox>
+            </Link>
+            <_LoginLine />
+            {userInfo ? (
+              <_NavBox current={false} onClick={sendModal}>
+                <_NavCircle src={HeaderCircle} />
+                <_NavButton>LOGIN</_NavButton>
+              </_NavBox>
+            ) : (
+              <>
+                <_ProfileImg
+                  src={`https://wakmusic.xyz/static/profile/jupock.png`}
+                  alt=""
+                />
+                <p>김벽걸</p>
+                <div id="profile-hover">
+                  <img src={HeaderProfileEtc} />
+                  <Link to="/mypage" className="profile-item">
+                    MYPAGE
+                  </Link>
+                  <a href="/logout" className="profile-item">
+                    LOGOUT
+                  </a>
                 </div>
-              )}
-            </_BarRight>
-          </_NavLayout>
+              </>
+            )}
+          </_BarRight>
         </_Header>
         <div id="burger-btn" onClick={() => enableMenu()}>
           <div />
@@ -152,7 +149,7 @@ function Header(props: HeaderProps) {
             </Link>
           </div>
           <div className="nav-item-wrap">
-            {!props.userInfo ? (
+            {!userInfo ? (
               <div
                 className="nav-item"
                 onClick={() => {
@@ -165,13 +162,10 @@ function Header(props: HeaderProps) {
             ) : (
               <>
                 <div id="mobile-profile-area">
-                  <div>
-                    <img
-                      src={`/static/profile/dulgi.png`}
-                      alt=""
-                      className="profile-image"
-                    />
-                  </div>
+                  <_ProfileImg
+                    src={`https://wakmusic.xyz/static/profile/jupock.png`}
+                    alt=""
+                  />
                   <div className="profile-name">UNKNOWN</div>
                 </div>
                 <Link
@@ -259,10 +253,10 @@ const _HeaderWrap = styled.div`
 
 const _Header = styled.div`
   position: relative;
-  width: 65vw;
-  height: 80px;
   display: flex;
   align-items: center;
+  width: 65vw;
+  height: 80px;
 `;
 
 const _BarRight = styled.div`
@@ -270,7 +264,23 @@ const _BarRight = styled.div`
   right: 0px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
+
+  p {
+    margin: 0px;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    max-width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+`;
+
+const _ProfileImg = styled.img`
+  height: 32px;
+  border-radius: 100px;
 `;
 
 const _NavLayout = styled.div`

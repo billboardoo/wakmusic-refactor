@@ -37,9 +37,8 @@ function App() {
       <Router>
         <Header userInfo={userInfo} setUserInfo={setUserInfo} />
         <Routes>
-          <Route path="/" element={<div style={{height:"3000px"}}/>} />
-          {/* <Route path="/" element={<Main />} />
-          <Route path="/news" element={<News />} />
+          {/* <Route path="/" element={<Main />} /> */}
+          {/* <Route path="/news" element={<News />} />
           <Route path="/artists" element={<Artists />} />
           <Route path="/artist/:id" element={<GetArtistPage />} />
           <Route path="/albums" element={<Albums />} />
