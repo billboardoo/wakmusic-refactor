@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 // import { useQuery } from "react-query";
 import { NavList } from "./NavList";
 import logo from "../../assets/imgs/Logo/DefaultLogo.png";
-import burger from "../../assets/imgs/Etc/burger.png";
 import HeaderCircle from "../../assets/svgs/Etc/HeaderCircle.svg";
 import HeaderProfileEtc from "../../assets/svgs/Etc/HeaderProfileEtc.svg";
 import axios from "axios";
@@ -57,11 +56,9 @@ function Header(props: HeaderProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const sendModal = (e: any) => {
-    console.log(e.target);
-    if (e?.target.className.startsWith("sc-bcXHqe") || !modal) {
-      setModal(!modal);
-    }
+  const sendModal = () => {
+    setModal(!modal);
+
     const body = document.getElementsByTagName("body")[0];
     if (modal) body.style.overflow = "";
     else body.style.overflow = "hidden";
@@ -158,8 +155,8 @@ function Header(props: HeaderProps) {
             {!props.userInfo ? (
               <div
                 className="nav-item"
-                onClick={(e) => {
-                  sendModal(e);
+                onClick={() => {
+                  sendModal();
                   enableMenu();
                 }}
               >
