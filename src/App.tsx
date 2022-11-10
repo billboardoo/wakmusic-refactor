@@ -23,13 +23,19 @@ import Header from "./components/Header/Header";
 interface userInfoType {
   name: string;
   id: string;
-  platform: "google" | "apple" | "naver";
+  platform: "google" | "apple" | "naver" | "";
   profile: string;
   first: boolean;
 }
 
 function App() {
-  const [userInfo, setUserInfo] = useState<userInfoType>();
+  const [userInfo, setUserInfo] = useState<userInfoType>({
+    name: "",
+    id: "",
+    platform: "",
+    profile: "",
+    first: false,
+  });
 
   return (
     <>

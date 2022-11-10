@@ -13,7 +13,7 @@ import { useQuery } from "react-query";
 interface userInfoType {
   name: string;
   id: string;
-  platform: "google" | "apple" | "naver";
+  platform: "google" | "apple" | "naver" | "";
   profile: string;
   first: boolean;
 }
@@ -61,19 +61,19 @@ function Header(props: HeaderProps) {
     setModal(!modal);
   };
 
-  const enableMenu = () => {
-    const menuBtn = document.getElementById("nav-bar-mobile");
-    setMenu(!menu);
-    if (menu) {
-      menuBtn.className = "nav-bar-disabled";
-      setTimeout(() => {
-        menuBtn.style.display = "none";
-      }, 200);
-    } else {
-      menuBtn.className = "nav-bar-enabled";
-      menuBtn.style.display = "block";
-    }
-  };
+  // const enableMenu = () => {
+  //   const menuBtn = document.getElementById("nav-bar-mobile");
+  //   setMenu(!menu);
+  //   if (menu) {
+  //     menuBtn.className = "nav-bar-disabled";
+  //     setTimeout(() => {
+  //       menuBtn.style.display = "none";
+  //     }, 200);
+  //   } else {
+  //     menuBtn.className = "nav-bar-enabled";
+  //     menuBtn.style.display = "block";
+  //   }
+  // };
 
   if (loading) return <></>;
 
@@ -277,13 +277,18 @@ const _BarRight = styled.div`
 
 const _ProfileMenuBox = styled.div`
   position: absolute;
-  top: 40px;
+  top: 0px; 
+  padding-top: 35px;
   right: 28px;
   width: 90px;
   display: none;
   flex-direction: column;
   background: none;
   align-items: center;
+
+  &:hover {
+    display: flex;
+  }
 `;
 
 const _ProfileContentBox = styled.div`

@@ -1,7 +1,12 @@
 import React from "react";
 import * as S from "./styled";
 
-const LoginBox = ({ name, children }) => {
+interface Props {
+ name : string;
+ children : React.ReactNode; 
+}
+
+const LoginBox = ({ name, children }:Props) => {
   const onClickLogin = () => {
     if (name) {
       window.location.href = `/auth/login/${name}`;
