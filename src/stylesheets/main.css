@@ -928,20 +928,19 @@
   padding-right: 0 !important;
 }
 
-
-
-
 #profile-hover {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 90px;
-  display: none;
+  top: 30px;
   flex-wrap: wrap;
   background: #e3e5eb;
-  margin-top: 45px;
   border-radius: 10px;
-  margin-left: -28px;
+  margin-right: 28px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-  z-index: 333;
+  z-index: 1;
 }
 
 #hover-svg {
@@ -958,10 +957,6 @@
   font-weight: 500;
   font-size: 15px;
   transition: opacity 0.2s;
-}
-
-#profile-area:hover > #profile-hover {
-  display: flex;
 }
 
 .profile-item:hover {

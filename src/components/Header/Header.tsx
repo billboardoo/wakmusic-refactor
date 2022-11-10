@@ -8,6 +8,7 @@ import HeaderCircle from "../../assets/svgs/Etc/HeaderCircle.svg";
 import HeaderProfileEtc from "../../assets/svgs/Etc/HeaderProfileEtc.svg";
 import axios from "axios";
 import LoginModal from "../Login/LoginModal";
+import { useQuery } from "react-query";
 
 interface userInfoType {
   name: string;
@@ -58,10 +59,6 @@ function Header(props: HeaderProps) {
 
   const sendModal = () => {
     setModal(!modal);
-
-    const body = document.getElementsByTagName("body")[0];
-    if (modal) body.style.overflow = "";
-    else body.style.overflow = "hidden";
   };
 
   const enableMenu = () => {
@@ -103,7 +100,7 @@ function Header(props: HeaderProps) {
                 </Link>
               );
             })}
-          </_NavLayout>{" "}
+          </_NavLayout>
           <_BarRight>
             <Link to="/support" style={{ textDecoration: "none" }}>
               <_NavBox current={selectMenu == "/support"}>
@@ -118,26 +115,24 @@ function Header(props: HeaderProps) {
                 <_NavButton>LOGIN</_NavButton>
               </_NavBox>
             ) : (
-              <>
+              <_ProfileArea>
                 <_ProfileImg
                   src={`https://wakmusic.xyz/static/profile/jupock.png`}
                   alt=""
                 />
                 <p>김벽걸</p>
-                <div id="profile-hover">
-                  <img src={HeaderProfileEtc} />
-                  <Link to="/mypage" className="profile-item">
-                    MYPAGE
-                  </Link>
-                  <a href="/logout" className="profile-item">
-                    LOGOUT
-                  </a>
-                </div>
-              </>
+                <_ProfileMenuBox>
+                  <img src={HeaderProfileEtc} alt="" />
+                  <_ProfileContentBox>
+                    <_ProfileContent href="/mypage">MYPAGE</_ProfileContent>
+                    <_ProfileContent href="/logout">LOGOUT</_ProfileContent>
+                  </_ProfileContentBox>
+                </_ProfileMenuBox>
+              </_ProfileArea>
             )}
           </_BarRight>
         </_Header>
-        <div id="burger-btn" onClick={() => enableMenu()}>
+        {/* <div id="burger-btn" onClick={() => enableMenu()}>
           <div />
           <div />
           <div />
@@ -236,7 +231,7 @@ function Header(props: HeaderProps) {
               SUPPORT
             </Link>
           </div>
-        </div>
+        </div> */}
       </_HeaderWrap>
     </>
   );
@@ -249,6 +244,7 @@ const _HeaderWrap = styled.div`
   background: #080f34;
   width: 100vw;
   height: 80px;
+  overflow-y: visible;
 `;
 
 const _Header = styled.div`
@@ -257,6 +253,7 @@ const _Header = styled.div`
   align-items: center;
   width: 65vw;
   height: 80px;
+  overflow-y: visible;
 `;
 
 const _BarRight = styled.div`
@@ -278,6 +275,48 @@ const _BarRight = styled.div`
   }
 `;
 
+const _ProfileMenuBox = styled.div`
+  position: absolute;
+  top: 40px;
+  right: 28px;
+  width: 90px;
+  display: none;
+  flex-direction: column;
+  background: none;
+  align-items: center;
+`;
+
+const _ProfileContentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90px;
+  min-height: 20px;
+  margin-top: -1px;
+  background: #e3e5eb;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+`;
+
+const _ProfileContent = styled.a`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 40px;
+  background: #e3e5eb;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  color: #080f34;
+  text-decoration: none;
+
+  &:hover {
+    color: #3a488e;
+  }
+`;
+
 const _ProfileImg = styled.img`
   height: 32px;
   border-radius: 100px;
@@ -292,6 +331,21 @@ const _NavLayout = styled.div`
 interface NavBoxProps {
   current: boolean;
 }
+
+const _ProfileArea = styled.div`
+  z-index: 1;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &:hover {
+    div {
+      display: flex;
+    }
+  }
+`;
 
 const _NavBox = styled.div<NavBoxProps>`
   display: flex;
