@@ -27,7 +27,7 @@ function Header(props: HeaderProps) {
   const { userInfo, setUserInfo } = props;
   const location = useLocation();
   const [selectMenu, setSelectMenu] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
   const [menu, setMenu] = useState<boolean>(false);
 
@@ -75,7 +75,7 @@ function Header(props: HeaderProps) {
   //   }
   // };
 
-  if (loading) return <></>;
+  // if (loading) return <></>;
 
   return (
     <>
@@ -83,7 +83,7 @@ function Header(props: HeaderProps) {
       <_HeaderWrap>
         <_Header>
           <Link to="/" className="logo">
-            <img src={logo} alt="" />
+            <img src={logo} alt="WAKTAVERSE MUSIC" />
           </Link>
           <_NavLayout>
             {NavList.map((item, index) => {
@@ -110,11 +110,6 @@ function Header(props: HeaderProps) {
             </Link>
             <_LoginLine />
             {userInfo ? (
-              <_NavBox current={false} onClick={sendModal}>
-                <_NavCircle src={HeaderCircle} />
-                <_NavButton>LOGIN</_NavButton>
-              </_NavBox>
-            ) : (
               <_ProfileArea>
                 <_ProfileImg
                   src={`https://wakmusic.xyz/static/profile/jupock.png`}
@@ -122,13 +117,18 @@ function Header(props: HeaderProps) {
                 />
                 <p>김벽걸</p>
                 <_ProfileMenuBox>
-                  <img src={HeaderProfileEtc} alt="" />
+                  <img src={HeaderProfileEtc} alt="프로필 사진" />
                   <_ProfileContentBox>
                     <_ProfileContent href="/mypage">MYPAGE</_ProfileContent>
                     <_ProfileContent href="/logout">LOGOUT</_ProfileContent>
                   </_ProfileContentBox>
                 </_ProfileMenuBox>
               </_ProfileArea>
+            ) : (
+              <_NavBox current={false} onClick={sendModal}>
+                <_NavCircle src={HeaderCircle} />
+                <_NavButton>LOGIN</_NavButton>
+              </_NavBox>
             )}
           </_BarRight>
         </_Header>
@@ -277,8 +277,8 @@ const _BarRight = styled.div`
 
 const _ProfileMenuBox = styled.div`
   position: absolute;
-  top: 0px; 
-  padding-top: 35px;
+  top: 0px;
+  padding-top: 40px;
   right: 28px;
   width: 90px;
   display: none;
@@ -318,7 +318,7 @@ const _ProfileContent = styled.a`
   text-decoration: none;
 
   &:hover {
-    color: #3a488e;
+    color: #646d9c;
   }
 `;
 
