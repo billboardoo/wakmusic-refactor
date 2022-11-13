@@ -22,40 +22,34 @@ interface HeaderProps {
   userInfo: userInfoType;
   setUserInfo: Dispatch<SetStateAction<userInfoType>>;
 }
+const getUserInfo = () => {
+  return axios.get("/api/auth");
+};
 
 function Header(props: HeaderProps) {
   const { userInfo, setUserInfo } = props;
   const location = useLocation();
   const [selectMenu, setSelectMenu] = useState<string>("");
-  // const [loading, setLoading] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
   const [menu, setMenu] = useState<boolean>(false);
-
-  const getUserInfo = () => {
-    return axios.get("/api/auth");
-  };
+  // const { data, isError } = useQuery<any>(["userData"], getUserInfo);
 
   useEffect(() => {
     const pathName: string = location.pathname;
     setSelectMenu(pathName);
   });
 
-  useEffect(() => {
-    // setLoading(true);
-    // if (userInfoQuery.isError == false) {
-    // setUserInfo({
-    //   name: data.displayName
-    //     ? data.displayName
-    //     : "애플" + data.sub.split(".")[2],
-    //   id: data.id ? data.id : data.sub,
-    //   platform: data.provider ? data.provider : "apple",
-    //   profile: data.profile,
-    //   first: data.first,
-    // });
-    // }
-    // setLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // if (isError == false) {
+  //   setUserInfo({
+  //     name: data?.displayName
+  //       ? data?.displayName
+  //       : "애플" + data.sub.split(".")[2],
+  //     id: data?.id ? data?.id : data?.sub,
+  //     platform: data?.provider ? data?.provider : "apple",
+  //     profile: data?.profile,
+  //     first: data?.first,
+  //   });
+  // }
 
   const sendModal = () => {
     setModal(!modal);
@@ -109,11 +103,11 @@ function Header(props: HeaderProps) {
               </_NavBox>
             </Link>
             <_LoginLine />
-            {userInfo ? (
+            {!userInfo ? (
               <_ProfileArea>
                 <_ProfileImg
                   src={`https://wakmusic.xyz/static/profile/jupock.png`}
-                  alt=""
+                  alt="ProfileImg"
                 />
                 <p>김벽걸</p>
                 <_ProfileMenuBox>
