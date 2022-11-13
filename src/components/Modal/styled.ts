@@ -18,7 +18,12 @@ export const ButtonLayout = styled.div`
   align-items: center;
 `;
 
-export const MainButton = styled.button`
+interface MainButtonProps {
+  background: string;
+  color: string;
+}
+
+export const MainButton = styled.button<MainButtonProps>`
   cursor: pointer;
   width: 235px;
   height: 60px;
