@@ -2,7 +2,13 @@ import Apple from "../../images/Apple.svg";
 import Naver from "../../images/Naver.svg";
 import Google from "../../images/Google.svg";
 
-export const loginTypeInfo = [
+interface infoType {
+  name: string;
+  image: string;
+  text: string;
+}
+
+export const loginTypeInfo: infoType[] = [
   {
     name: "apple",
     image: Apple,

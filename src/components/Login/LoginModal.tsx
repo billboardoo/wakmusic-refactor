@@ -3,7 +3,11 @@ import { loginTypeInfo } from "./LoginTypeInfo";
 import LoginBox from "./LoginBox";
 import * as S from "./styled";
 
-const LoginModal = (props: any) => {
+interface propsType {
+  sendModal: () => void;
+}
+
+const LoginModal = (props: propsType) => {
   const { sendModal } = props;
   const backgroundRef = useRef<HTMLDivElement | null>(null);
 
