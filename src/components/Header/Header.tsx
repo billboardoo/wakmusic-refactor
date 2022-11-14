@@ -1,14 +1,13 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
-// import { useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { NavList } from "./NavList";
 import logo from "../../assets/imgs/Logo/DefaultLogo.png";
 import HeaderCircle from "../../assets/svgs/Etc/HeaderCircle.svg";
 import HeaderProfileEtc from "../../assets/svgs/Etc/HeaderProfileEtc.svg";
 import axios from "axios";
 import LoginModal from "../Login/LoginModal";
-import { useQuery } from "react-query";
 
 interface userInfoType {
   name: string;
@@ -22,6 +21,7 @@ interface HeaderProps {
   userInfo: userInfoType;
   setUserInfo: Dispatch<SetStateAction<userInfoType>>;
 }
+
 const getUserInfo = () => {
   return axios.get("/api/auth");
 };
@@ -29,12 +29,18 @@ const getUserInfo = () => {
 function Header(props: HeaderProps) {
   const { userInfo, setUserInfo } = props;
   const location = useLocation();
+  const { data: userData } = useQuery(["userData"], getUserInfo, {
+    enabled: location.pathname == "mypage",
+    onError: (error: Error) => {
+      alert("로그인에 실패했습니다.");
+    },
+  });
   const [selectMenu, setSelectMenu] = useState<string>("");
   const [modal, setModal] = useState<boolean>(false);
   const [menu, setMenu] = useState<boolean>(false);
-  // const { data, isError } = useQuery<any>(["userData"], getUserInfo);
 
   useEffect(() => {
+    console.log(userData);
     const pathName: string = location.pathname;
     setSelectMenu(pathName);
   });
@@ -68,8 +74,6 @@ function Header(props: HeaderProps) {
   //     menuBtn.style.display = "block";
   //   }
   // };
-
-  // if (loading) return <></>;
 
   return (
     <>

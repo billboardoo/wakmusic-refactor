@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import UpdateTime from "./UpdateTime";
 import ChartTypeList from "./ChartTypeList";
 import Dropdown from "../Dropdown";
-import Button from "../Button";
+import Button from "../Button.tsx";
 import {getDate} from "../Utils";
 
 

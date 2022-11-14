@@ -33,6 +33,7 @@ const _Container = styled.div`
 const FooterText = styled.p`
   color: #6b6f85;
   font-size: 14px;
+  margin: 0px;
   text-align: center;
 `;
 

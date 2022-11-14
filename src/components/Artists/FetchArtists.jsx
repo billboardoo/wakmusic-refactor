@@ -3,7 +3,7 @@ import axios from "axios"
 import {Link, useNavigate} from "react-router-dom";
 import Dropdown from "../Dropdown";
 import SortTypeList from "./SortTypeList";
-import Button from "../Button";
+import Button from "../Button.tsx";
 import ArtistDetail from "./ArtistDetail";
 import {getDate} from "../Utils";
 
