@@ -10,7 +10,7 @@ import "./stylesheets/artist.css";
 // import Albums from "./pages/Albums";
 // import Teams from "./pages/Teams";
 // import Charts from "./pages/Charts";
-// import NotFound from "./pages/NotFound";
+import NotFound from "./pages/NotFound";
 import Header from "./components/Header/Header";
 // import Player from "./pages/Player";
 // import MyPage from "./pages/MyPage";
@@ -60,8 +60,8 @@ function App() {
           <Route path="/support" element={<Support />} />
           <Route path="/playlist" element={<Playlist />} />
           <Route path="/playlist/:id" element={<Playlist />} />
-          <Route path="/add" element={<AddMusic />} />
-          <Route path="*" element={<NotFound />} /> */}
+          <Route path="/add" element={<AddMusic />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </>
