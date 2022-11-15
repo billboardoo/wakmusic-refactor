@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 const Support = () => {
   return (
     <div className="container fadein" id="dark-container">
-      <PageIntroduce title="SUPPORT"/>
+      <PageIntroduce title="SUPPORT" />
       <div className="support-text">
         버그 제보:{" "}
         <a href="/bug" target="_blank" rel="noreferrer">
