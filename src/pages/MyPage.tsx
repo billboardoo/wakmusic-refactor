@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import { userInfoStateType } from "../types";
 import FetchProfile from "../components/MyPage/FetchProfile";
 import PlaylistSection from "../components/MyPage/PlaylistSection";
 import Modal from "../components/Modal/Modal";
@@ -8,16 +9,24 @@ import * as S from "../components/MyPage/styled";
 import Footer from "../components/Footer";
 import { Ellipse } from "../components/Utils";
 
-const MyPage = ({ userInfo, setUserInfo }) => {
+interface addPlaylistType {
+  name: string;
+  text: string;
+}
+
+const MyPage = ({ userInfo, setUserInfo }: userInfoStateType) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [alertText, setAlert] = useState("");
-  const [platformText, setPlatformText] = useState("");
-  const [playlistName, setPlaylistName] = useState("");
-  const [plusModalBool, setPlusModalBool] = useState(false);
-  const [deleteModalBool, setDeleteModalBool] = useState(false);
+  const [alertText, setAlert] = useState<string>("");
+  const [platformText, setPlatformText] = useState<string>("");
+  const [addPlaylist, setAddPlaylist] = useState<addPlaylistType>({
+    name: "",
+    text: "",
+  });
+  const [plusModalBool, setPlusModalBool] = useState<boolean>(false);
+  const [deleteModalBool, setDeleteModalBool] = useState<boolean>(false);
   const [playlistBundle, setPlaylistBundle] = useState([]);
-  const [text, setText] = useState("");
+
   // {key, title, creator, platform, image}
 
   useEffect(() => {
@@ -55,7 +64,7 @@ const MyPage = ({ userInfo, setUserInfo }) => {
   }, []);
 
   //플레이 리스트 목록 가져오기
-  const getPlaylist = (userId) => {
+  const getPlaylist = (userId: string) => {
     axios
       .get(`/api/playlist/list/${userId}`)
       .then((res) => {
@@ -93,26 +102,34 @@ const MyPage = ({ userInfo, setUserInfo }) => {
   };
 
   //추가할 플레이리스트 이름 설정 함수
-  const onChangePlaylistName = (e) => {
-    if (e.target.value.length > 12) setText("12자 이내로 입력해 주세요.");
-    else if (e.target.value === "158") {
-      setText("제목이 너무 짧습니다.");
-      setPlaylistName(e.target.value);
-    } else if (e.target.value === "159") {
-      setText("이제 적당하군요");
-      setPlaylistName(e.target.value);
+  const onChangePlaylistName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    if (value.length > 12) {
+      setAddPlaylist({ ...addPlaylist, text: "12자 이내로 입력해 주세요." });
+    } else if (value === "158") {
+      setAddPlaylist({
+        name: value,
+        text: "제목이 너무 짧습니다.",
+      });
+    } else if (value === "159") {
+      setAddPlaylist({
+        name: value,
+        text: "이제 적당하군요",
+      });
     } else {
-      setText("");
-      setPlaylistName(e.target.value);
+      setAddPlaylist({
+        name: value,
+        text: "",
+      });
     }
   };
 
   //플레이리스트 추가 요청 API
   const postAppendPlaylist = () => {
-    if (playlistName.trim()) {
+    if (addPlaylist.name.trim()) {
       axios
         .post("/api/playlist/create", {
-          title: playlistName,
+          title: addPlaylist.name,
           creator: userInfo.name,
           platform: userInfo.platform,
           image: Math.floor(Math.random() * 11) + 1,
@@ -121,21 +138,29 @@ const MyPage = ({ userInfo, setUserInfo }) => {
           clientId: userInfo.id,
         })
         .catch(() => {
-          setText("재생목록을 생성할 수 없습니다.");
+          setAddPlaylist({
+            ...addPlaylist,
+            text: "재생목록을 생성할 수 없습니다.",
+          });
         })
         .then((res) => {
           setPlusModalBool(false);
-          setPlaylistName("");
+          setAddPlaylist({
+            name: "",
+            text: "",
+          });
           window.location.reload();
         });
     } else {
-      setText("재생목록의 이름을 입력해 주세요.");
-      setPlaylistName("");
+      setAddPlaylist({
+        name: "",
+        text: "재생목록의 이름을 입력해 주세요.",
+      });
     }
   };
 
   //유저 로그인 플랫폼 표시 글 세팅 함수
-  const platformSelect = (platform) => {
+  const platformSelect = (platform: string) => {
     switch (platform) {
       case "google":
         setPlatformText("구글로 로그인 중");
@@ -181,10 +206,12 @@ const MyPage = ({ userInfo, setUserInfo }) => {
             </S.IntroduceText>
             <S.NameInput
               onChange={onChangePlaylistName}
-              value={playlistName}
+              value={addPlaylist.name}
               placeholder="이름을 입력해 주세요."
             />
-            {text !== "" && <div id="text-limit">{text}</div>}
+            {addPlaylist.text !== "" && (
+              <div id="text-limit">{addPlaylist.text}</div>
+            )}
           </Modal>
         )}
 
@@ -213,7 +240,6 @@ const MyPage = ({ userInfo, setUserInfo }) => {
             setPlusModalBool={setPlusModalBool}
             playlistBundle={playlistBundle}
             setDeleteModalBool={setDeleteModalBool}
-            userInfo={userInfo}
           />
         </S.InfoLayout>
         <Ellipse />
