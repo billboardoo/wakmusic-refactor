@@ -23,13 +23,12 @@ function Header() {
       alert("로그인에 실패했습니다.");
     },
   });
-  const { userInfo, setUserInfo } = useContext(userInfoContext);
+  const pp = useContext(userInfoContext);
   const [selectMenu, setSelectMenu] = useState<string>("");
   const [modal, setModal] = useState<boolean>(false);
   const [menu, setMenu] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(userInfo);
     const pathName: string = location.pathname;
     setSelectMenu(pathName);
   });
@@ -81,8 +80,8 @@ function Header() {
                   key={index}
                 >
                   <_NavBox current={selectMenu == item.path}>
-                    <_NavCircle src={HeaderCircle} />
-                    <_NavButton name={`${index}`}>{item.value}</_NavButton>
+                    <img src={HeaderCircle} />
+                    <button name={`${index}`}>{item.value}</button>
                   </_NavBox>
                 </Link>
               );
@@ -91,12 +90,12 @@ function Header() {
           <_BarRight>
             <Link to="/support" style={{ textDecoration: "none" }}>
               <_NavBox current={selectMenu == "/support"}>
-                <_NavCircle src={HeaderCircle} />
-                <_NavButton>SUPPROT</_NavButton>
+                <img src={HeaderCircle} />
+                <button>SUPPROT</button>
               </_NavBox>
             </Link>
             <_LoginLine />
-            {!userInfo ? (
+            {!pp ? (
               <_ProfileArea>
                 <_ProfileImg
                   src={`https://wakmusic.xyz/static/profile/jupock.png`}
@@ -106,15 +105,15 @@ function Header() {
                 <_ProfileMenuBox>
                   <img src={HeaderProfileEtc} alt="프로필 사진" />
                   <_ProfileContentBox>
-                    <_ProfileContent href="/mypage">MYPAGE</_ProfileContent>
-                    <_ProfileContent href="/logout">LOGOUT</_ProfileContent>
+                    <a href="/mypage">MYPAGE</a>
+                    <a href="/logout">LOGOUT</a>
                   </_ProfileContentBox>
                 </_ProfileMenuBox>
               </_ProfileArea>
             ) : (
               <_NavBox current={false} onClick={sendModal}>
-                <_NavCircle src={HeaderCircle} />
-                <_NavButton>LOGIN</_NavButton>
+                <img src={HeaderCircle} />
+                <button>LOGIN</button>
               </_NavBox>
             )}
           </_BarRight>
@@ -155,8 +154,8 @@ function Header() {
                   style={{ fontSize: "15px", textDecoration: "none" }}
                 >
                   <_NavBox current={false}>
-                    <_NavCircle src={HeaderCircle} />
-                    <_NavButton>SUPPROT</_NavButton>
+                    <img src={HeaderCircle} />
+                    <button>SUPPROT</button>
                   </_NavBox>
                 </Link>
                 <a
@@ -290,23 +289,22 @@ const _ProfileContentBox = styled.div`
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-`;
 
-const _ProfileContent = styled.a`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 90px;
-  height: 40px;
-  background: #e3e5eb;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 15px;
-  color: #080f34;
-  text-decoration: none;
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90px;
+    height: 40px;
+    background: #e3e5eb;
+    font-weight: 500;
+    font-size: 15px;
+    color: #080f34;
+    text-decoration: none;
 
-  &:hover {
-    color: #646d9c;
+    &:hover {
+      color: #646d9c;
+    }
   }
 `;
 
@@ -348,10 +346,24 @@ const _NavBox = styled.div<NavBoxProps>`
 
   img {
     opacity: ${(props) => (props.current ? 1 : 0)};
+    transition: all 0.2s;
+    position: absolute;
+    top: -10px;
   }
 
   button {
     color: ${(props) => (props.current ? "#00f3f3" : "#ffffff")};
+    transition: color 0.2s;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 400;
+    transition: color 0.2s;
+    background: none;
+    border: none;
+    margin: 0px;
+    text-decoration: none;
+    padding: 0px;
+    cursor: pointer;
   }
 
   &:hover {
@@ -364,33 +376,11 @@ const _NavBox = styled.div<NavBoxProps>`
   }
 `;
 
-const _NavCircle = styled.img`
-  transition: all 0.2s;
-  position: absolute;
-  top: -10px;
-  opacity: 0;
-`;
-
 const _LoginLine = styled.div`
   width: 1px;
   height: 16px;
   border-radius: 10px;
   background-color: #6b6f85;
-`;
-
-const _NavButton = styled.button`
-  transition: color 0.2s;
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 400;
-  transition: color 0.2s;
-  background: none;
-  border: none;
-  margin: 0px;
-  text-decoration: none;
-  padding: 0px;
-  cursor: pointer;
 `;
 
 export default Header;
