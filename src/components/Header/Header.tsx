@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
+import { userInfoType, userInfoStateType } from "../../types";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import { NavList } from "./NavList";
@@ -9,24 +10,11 @@ import HeaderProfileEtc from "../../assets/svgs/Etc/HeaderProfileEtc.svg";
 import axios from "axios";
 import LoginModal from "../Login/LoginModal";
 
-interface userInfoType {
-  name: string;
-  id: string;
-  platform: "google" | "apple" | "naver" | "";
-  profile: string;
-  first: boolean;
-}
-
-interface HeaderProps {
-  userInfo: userInfoType;
-  setUserInfo: Dispatch<SetStateAction<userInfoType>>;
-}
-
 const getUserInfo = () => {
   return axios.get("/api/auth");
 };
 
-function Header(props: HeaderProps) {
+function Header(props: userInfoStateType) {
   const { userInfo, setUserInfo } = props;
   const location = useLocation();
   const { data: userData } = useQuery(["userData"], getUserInfo, {
