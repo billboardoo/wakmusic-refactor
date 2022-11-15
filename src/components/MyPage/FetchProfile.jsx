@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { userInfoContext } from "../../Context/userInfo";
 import ProfileSetting from "../../images/ProfileSetting.svg";
 import { useNavigate } from "react-router-dom";
 import * as S from "./styled";
 
-const FetchProfile = ({ userInfo, platformText }) => {
+const FetchProfile = ({ platformText }) => {
   const navigate = useNavigate();
   const profileURL = `/static/profile/${userInfo.profile}.png`;
+  const { userInfo } = useContext(userInfoContext);
 
   const onClickProfileSelect = () => {
     navigate("/profile");

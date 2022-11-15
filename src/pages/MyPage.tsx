@@ -20,7 +20,7 @@ const MyPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { userInfo, setUserInfo } = useContext(userInfoContext);
-  const [alertText, setAlert] = useState<string>("");
+  const [alertText, setAlertText] = useState<string>("");
   const [platformText, setPlatformText] = useState<string>("");
   const [addPlaylist, setAddPlaylist] = useState<addPlaylistType>({
     name: "",
@@ -180,9 +180,9 @@ const MyPage = () => {
   };
 
   const sendAlert = (text) => {
-    setAlert(text);
+    setAlertText(text);
     setTimeout(() => {
-      setAlert("");
+      setAlertText("");
     }, 2000);
   };
 
@@ -233,7 +233,7 @@ const MyPage = () => {
         )}
         <PageIntroduce title="내 재생목록" />
         <S.InfoLayout>
-          <FetchProfile userInfo={userInfo} platformText={platformText} />
+          <FetchProfile platformText={platformText} />
           <PlaylistSection
             setPlusModalBool={setPlusModalBool}
             playlistBundle={playlistBundle}

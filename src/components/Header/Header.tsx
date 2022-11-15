@@ -232,6 +232,7 @@ const _HeaderWrap = styled.div`
   width: 100vw;
   height: 80px;
   overflow-y: visible;
+  z-index: 1;
 `;
 
 const _Header = styled.div`

@@ -7,7 +7,7 @@ const Button = (props: any) => {
   if (!props.data[0] || !props.shuffle[0]) return;
   props.shuffle.sort(() => Math.random() - 0.5);
   return (
-    <div className="btn-wrap">
+    <div>
       <Link
         to={`/player/${props.data[0].id}`}
         state={{ current: props.data[0], prev: [], next: props.data.slice(1) }}

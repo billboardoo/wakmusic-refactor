@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { userInfoContext } from "./Context/userInfo";
 import GlobalStyle from "./GlobalStyle";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { userInfoType } from "./types";
@@ -6,7 +7,7 @@ import "./stylesheets/index.css";
 import "./stylesheets/main.css";
 import "./stylesheets/artist.css";
 // import Main from "./pages/Main";
-// import News from "./pages/News";
+import News from "./pages/News";
 // import Artists from "./pages/Artists";
 // import Albums from "./pages/Albums";
 import Teams from "./pages/Teams";
@@ -31,24 +32,21 @@ function App() {
   });
 
   return (
-    <>
+    <userInfoContext.Provider value={{ userInfo, setUserInfo }}>
       <GlobalStyle />
       <Router>
-        <Header userInfo={userInfo} setUserInfo={setUserInfo} />
+        <Header />
         <Routes>
           <Route path="/" element={<div style={{ height: "1000px" }} />} />
           {/* <Route path="/" element={<Main />} /> */}
-          {/* <Route path="/news" element={<News />} />
-          <Route path="/artists" element={<Artists />} />
+          <Route path="/news" element={<News />} />
+          {/* <Route path="/artists" element={<Artists />} />
           <Route path="/artist/:id" element={<GetArtistPage />} />
-          <Route path="/albums" element={<Albums />} /> */}
+          <Route path="/albums" element={<Albums />} />  */}
           <Route path="/teams" element={<Teams />} />
           {/* <Route path="/charts" element={<Charts />} />
           <Route path="/player/:id" element={<Player />} /> */}
-          <Route
-            path="/mypage"
-            element={<MyPage userInfo={userInfo} setUserInfo={setUserInfo} />}
-          />
+          <Route path="/mypage" element={<MyPage />} />
           {/* <Route path="/profile" element={<Profile userInfo={userInfo} />} /> */}
           <Route path="/support" element={<Support />} />
           {/* <Route path="/playlist" element={<Playlist />} />
@@ -57,7 +55,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-    </>
+    </userInfoContext.Provider>
   );
 }
 

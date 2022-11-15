@@ -1,30 +1,37 @@
 import React from "react";
+import styled from "styled-components";
+import PageIntroduce from "../components/PageIntroduce";
 import Footer from "../components/Footer";
 import InfiniteScroll from "../components/News/InfiniteScroll";
+import { useEffect } from "react";
 
+const News = () => {
+  const componentDidMount = () => {
+    window.scrollTo({ top: 0 });
+  };
 
-class News extends React.Component {
-    componentDidMount() {
-        window.scrollTo({top: 0});
-    }
+  useEffect(() => {
+    componentDidMount();
+  }, []);
 
-    render() {
-        return (
-            <div className="container fadein">
-                <div className="news-body">
-                    <div className="page-title-wrap">
-                        <div className="title-sub">WAKTAVERSE MUSIC</div>
-                        <div className="title">NEWS</div>
-                    </div>
-                    <div className="title-line"/>
-                    <div id="news-section">
-                        <InfiniteScroll/>
-                    </div>
-                </div>
-                <Footer/>
-            </div>
-        );
-    }
-}
+  return (
+    <div className="container fadein">
+      <_NewsBody>
+        <PageIntroduce title="NEWS" />
+        <div id="news-section">
+          <InfiniteScroll />
+        </div>
+      </_NewsBody>
+      <Footer />
+    </div>
+  );
+};
+
+const _NewsBody = styled.div`
+  background-color: #e3e5eb;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+`;
 
 export default News;
