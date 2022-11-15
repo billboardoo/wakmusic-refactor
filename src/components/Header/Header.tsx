@@ -1,6 +1,7 @@
-import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { userInfoType, userInfoStateType } from "../../types";
+import { userInfoContext } from "../../Context/userInfo";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import { NavList } from "./NavList";
@@ -14,8 +15,7 @@ const getUserInfo = () => {
   return axios.get("/api/auth");
 };
 
-function Header(props: userInfoStateType) {
-  const { userInfo, setUserInfo } = props;
+function Header() {
   const location = useLocation();
   const { data: userData } = useQuery(["userData"], getUserInfo, {
     enabled: location.pathname == "mypage",
@@ -23,12 +23,13 @@ function Header(props: userInfoStateType) {
       alert("로그인에 실패했습니다.");
     },
   });
+  const { userInfo, setUserInfo } = useContext(userInfoContext);
   const [selectMenu, setSelectMenu] = useState<string>("");
   const [modal, setModal] = useState<boolean>(false);
   const [menu, setMenu] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(userData);
+    console.log(userInfo);
     const pathName: string = location.pathname;
     setSelectMenu(pathName);
   });

@@ -46,12 +46,12 @@ const Support = () => {
         <br />
         <br />
         <div className="secret-text">
-          {easterEgg.map((item) => {
+          {easterEgg.map((item, index) => {
             return (
-              <>
+              <span key={index}>
                 {item}
                 <br />
-              </>
+              </span>
             );
           })}
         </div>

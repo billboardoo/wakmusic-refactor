@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import { userInfoContext } from "../Context/userInfo";
 import { userInfoStateType } from "../types";
 import PageIntroduce from "../components/PageIntroduce";
 import FetchProfile from "../components/MyPage/FetchProfile";
@@ -15,9 +16,10 @@ interface addPlaylistType {
   text: string;
 }
 
-const MyPage = ({ userInfo, setUserInfo }: userInfoStateType) => {
+const MyPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { userInfo, setUserInfo } = useContext(userInfoContext);
   const [alertText, setAlert] = useState<string>("");
   const [platformText, setPlatformText] = useState<string>("");
   const [addPlaylist, setAddPlaylist] = useState<addPlaylistType>({
