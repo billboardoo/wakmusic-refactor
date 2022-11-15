@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { userInfoStateType } from "../types";
+import PageIntroduce from "../components/PageIntroduce";
 import FetchProfile from "../components/MyPage/FetchProfile";
 import PlaylistSection from "../components/MyPage/PlaylistSection";
 import Modal from "../components/Modal/Modal";
@@ -228,12 +229,7 @@ const MyPage = ({ userInfo, setUserInfo }: userInfoStateType) => {
             </S.ModalTextLayout>
           </Modal>
         )}
-
-        <div className="page-title-wrap">
-          <div className="title-sub">WAKTAVERSE MUSIC</div>
-          <div className="title">내 재생목록</div>
-        </div>
-        <div className="title-line" />
+        <PageIntroduce title="내 재생목록" />
         <S.InfoLayout>
           <FetchProfile userInfo={userInfo} platformText={platformText} />
           <PlaylistSection

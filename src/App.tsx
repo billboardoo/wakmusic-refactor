@@ -14,7 +14,7 @@ import "./stylesheets/artist.css";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header/Header";
 // import Player from "./pages/Player";
-// import MyPage from "./pages/MyPage";
+import MyPage from "./pages/MyPage";
 // import Support from "./pages/Support";
 // import Profile from "./pages/Profile";
 // import Playlist from "./pages/Playlist";
@@ -44,12 +44,12 @@ function App() {
           <Route path="/albums" element={<Albums />} />
           <Route path="/teams" element={<Teams />} />
           <Route path="/charts" element={<Charts />} />
-          <Route path="/player/:id" element={<Player />} />
+          <Route path="/player/:id" element={<Player />} /> */}
           <Route
             path="/mypage"
             element={<MyPage userInfo={userInfo} setUserInfo={setUserInfo} />}
           />
-          <Route path="/profile" element={<Profile userInfo={userInfo} />} />
+          {/* <Route path="/profile" element={<Profile userInfo={userInfo} />} />
           <Route path="/support" element={<Support />} />
           <Route path="/playlist" element={<Playlist />} />
           <Route path="/playlist/:id" element={<Playlist />} />

@@ -5,8 +5,8 @@ interface propsType {
   children: ReactNode;
   leftText: string;
   rightText: string;
-  leftEvent: () => {};
-  rightEvent: () => {};
+  leftEvent: () => void;
+  rightEvent: () => void;
 }
 
 const Modal = (props: propsType) => {
