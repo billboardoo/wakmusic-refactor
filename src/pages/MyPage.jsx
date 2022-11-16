@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { userInfoContext } from "../Context/userInfo";
+import { userInfoContext } from "../Context/UserInfoContext";
 import { userInfoStateType } from "../types";
 import PageIntroduce from "../components/PageIntroduce";
 import FetchProfile from "../components/MyPage/FetchProfile";
@@ -11,23 +11,23 @@ import * as S from "../components/MyPage/styled";
 import Footer from "../components/Footer";
 import { Ellipse } from "../components/Utils";
 
-interface addPlaylistType {
-  name: string;
-  text: string;
-}
+// interface addPlaylistType {
+//   name: string;
+//   text: string;
+// }
 
 const MyPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { userInfo, setUserInfo } = useContext(userInfoContext);
-  const [alertText, setAlertText] = useState<string>("");
-  const [platformText, setPlatformText] = useState<string>("");
-  const [addPlaylist, setAddPlaylist] = useState<addPlaylistType>({
+  const [alertText, setAlertText] = useState("");
+  const [platformText, setPlatformText] = useState("");
+  const [addPlaylist, setAddPlaylist] = useState({
     name: "",
     text: "",
   });
-  const [plusModalBool, setPlusModalBool] = useState<boolean>(false);
-  const [deleteModalBool, setDeleteModalBool] = useState<boolean>(false);
+  const [plusModalBool, setPlusModalBool] = useState(false);
+  const [deleteModalBool, setDeleteModalBool] = useState(false);
   const [playlistBundle, setPlaylistBundle] = useState([]);
 
   // {key, title, creator, platform, image}
@@ -67,7 +67,7 @@ const MyPage = () => {
   }, []);
 
   //플레이 리스트 목록 가져오기
-  const getPlaylist = (userId: string) => {
+  const getPlaylist = (userId) => {
     axios
       .get(`/api/playlist/list/${userId}`)
       .then((res) => {
@@ -105,7 +105,7 @@ const MyPage = () => {
   };
 
   //추가할 플레이리스트 이름 설정 함수
-  const onChangePlaylistName = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangePlaylistName = (e) => {
     const { value } = e.target;
     if (value.length > 12) {
       setAddPlaylist({ ...addPlaylist, text: "12자 이내로 입력해 주세요." });
@@ -163,7 +163,7 @@ const MyPage = () => {
   };
 
   //유저 로그인 플랫폼 표시 글 세팅 함수
-  const platformSelect = (platform: string) => {
+  const platformSelect = (platform) => {
     switch (platform) {
       case "google":
         setPlatformText("구글로 로그인 중");

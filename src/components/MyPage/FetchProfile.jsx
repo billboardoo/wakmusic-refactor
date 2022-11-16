@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { userInfoContext } from "../../Context/userInfo";
+import { userInfoContext } from "../../Context/UserInfoContext";
 import ProfileSetting from "../../images/ProfileSetting.svg";
 import { useNavigate } from "react-router-dom";
 import * as S from "./styled";

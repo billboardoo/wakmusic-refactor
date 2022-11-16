@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import { userInfoType, userInfoStateType } from "../../types";
-import { userInfoContext } from "../../Context/userInfo";
+import {
+  userInfoContext,
+  setUserInfoContext,
+} from "../../Context/UserInfoContext";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import { NavList } from "./NavList";
@@ -23,10 +25,11 @@ function Header() {
       alert("로그인에 실패했습니다.");
     },
   });
-  const pp = useContext(userInfoContext);
+  const userInfo = useContext(userInfoContext);
+  const UserInfoDispatch = useContext(setUserInfoContext);
   const [selectMenu, setSelectMenu] = useState<string>("");
-  const [modal, setModal] = useState<boolean>(false);
-  const [menu, setMenu] = useState<boolean>(false);
+  const [isModal, setIsModal] = useState<boolean>(false);
+  const [isMenu, setIsMenu] = useState<boolean>(false);
 
   useEffect(() => {
     const pathName: string = location.pathname;
@@ -46,7 +49,7 @@ function Header() {
   // }
 
   const sendModal = () => {
-    setModal(!modal);
+    setIsModal(!isModal);
   };
 
   // const enableMenu = () => {
@@ -65,7 +68,7 @@ function Header() {
 
   return (
     <>
-      {modal ? <LoginModal sendModal={sendModal} /> : <></>}
+      {isModal ? <LoginModal sendModal={sendModal} /> : <></>}
       <_HeaderWrap>
         <_Header>
           <Link to="/" className="logo">
@@ -95,7 +98,7 @@ function Header() {
               </_NavBox>
             </Link>
             <_LoginLine />
-            {!pp ? (
+            {!userInfo ? (
               <_ProfileArea>
                 <_ProfileImg
                   src={`https://wakmusic.xyz/static/profile/jupock.png`}
@@ -134,7 +137,7 @@ function Header() {
               <div
                 className="nav-item"
                 onClick={() => {
-                  sendModal();
+                  sendisModal();
                   enableMenu();
                 }}
               >

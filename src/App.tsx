@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { userInfoContext } from "./Context/userInfo";
+import UserInfoProvider from "./Context/UserInfoContext";
 import GlobalStyle from "./GlobalStyle";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { userInfoType } from "./types";
 import "./stylesheets/index.css";
 import "./stylesheets/main.css";
 import "./stylesheets/artist.css";
@@ -10,7 +9,7 @@ import "./stylesheets/artist.css";
 import News from "./pages/News";
 // import Artists from "./pages/Artists";
 // import Albums from "./pages/Albums";
-import Teams from "./pages/Teams";
+// import Teams from "./pages/Teams";
 // import Charts from "./pages/Charts";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header/Header";
@@ -23,16 +22,8 @@ import Support from "./pages/Support";
 // import GetArtistPage from "./components/Artists/GetArtistPage";
 
 function App() {
-  const [userInfo, setUserInfo] = useState<userInfoType>({
-    name: "",
-    id: "",
-    platform: "",
-    profile: "",
-    first: false,
-  });
-
   return (
-    <userInfoContext.Provider value={{ userInfo, setUserInfo }}>
+    <UserInfoProvider>
       <GlobalStyle />
       <Router>
         <Header />
@@ -43,7 +34,7 @@ function App() {
           {/* <Route path="/artists" element={<Artists />} />
           <Route path="/artist/:id" element={<GetArtistPage />} />
           <Route path="/albums" element={<Albums />} />  */}
-          <Route path="/teams" element={<Teams />} />
+          {/* <Route path="/teams" element={<Teams />} /> */}
           {/* <Route path="/charts" element={<Charts />} />
           <Route path="/player/:id" element={<Player />} /> */}
           <Route path="/mypage" element={<MyPage />} />
@@ -55,7 +46,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-    </userInfoContext.Provider>
+    </UserInfoProvider>
   );
 }
 

@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from "react";
-import { type } from "os";
 
 export interface userInfoType {
   name: string;
@@ -9,7 +8,4 @@ export interface userInfoType {
   first: boolean;
 }
 
-export interface userInfoStateType {
-  userInfo: userInfoType;
-  setUserInfo: Dispatch<SetStateAction<userInfoType>>;
-}
+export type setUserInfoType = Dispatch<SetStateAction<userInfoType>>;
