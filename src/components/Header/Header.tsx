@@ -4,7 +4,7 @@ import {
   userInfoContext,
   setUserInfoContext,
 } from "../../Context/UserInfoContext";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { NavList } from "./NavList";
 import logo from "../../assets/imgs/Logo/DefaultLogo.png";
@@ -19,14 +19,18 @@ const getUserInfo = () => {
 
 function Header() {
   const location = useLocation();
-  const { data: userData } = useQuery(["userData"], getUserInfo, {
-    enabled: location.pathname == "mypage",
+  const navigate = useNavigate();
+  const { data: userData, isSuccess } = useQuery(["userData"], getUserInfo, {
+    enabled: location.pathname == "/mypage",
     onError: (error: Error) => {
       alert("로그인에 실패했습니다.");
     },
+    onSuccess: () => {
+      navigate("/mypage");
+    },
   });
   const userInfo = useContext(userInfoContext);
-  const UserInfoDispatch = useContext(setUserInfoContext);
+  const userInfoDispatch = useContext(setUserInfoContext);
   const [selectMenu, setSelectMenu] = useState<string>("");
   const [isModal, setIsModal] = useState<boolean>(false);
   const [isMenu, setIsMenu] = useState<boolean>(false);
@@ -36,17 +40,29 @@ function Header() {
     setSelectMenu(pathName);
   });
 
-  // if (isError == false) {
-  //   setUserInfo({
-  //     name: data?.displayName
-  //       ? data?.displayName
-  //       : "애플" + data.sub.split(".")[2],
-  //     id: data?.id ? data?.id : data?.sub,
-  //     platform: data?.provider ? data?.provider : "apple",
-  //     profile: data?.profile,
-  //     first: data?.first,
-  //   });
-  // }
+  if (isSuccess == false) {
+    // userInfoDispatch({
+    //   type: "reset",
+    //   changeInfo: {
+    //     name: userData?.displayName
+    //       ? userData?.displayName
+    //       : "애플" + userData.sub.split(".")[2],
+    //     id: userData?.id ? userData?.id : userData?.sub,
+    //     platform: userData?.provider ? userData?.provider : "apple",
+    //     profile: userData?.profile,
+    //     first: userData?.first,
+    //   },
+    // });
+    // setUserInfo({
+    //   name: data?.displayName
+    //     ? data?.displayName
+    //     : "애플" + data.sub.split(".")[2],
+    //   id: data?.id ? data?.id : data?.sub,
+    //   platform: data?.provider ? data?.provider : "apple",
+    //   profile: data?.profile,
+    //   first: data?.first,
+    // });
+  }
 
   const sendModal = () => {
     setIsModal(!isModal);

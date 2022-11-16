@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-
 export interface userInfoType {
   name: string;
   id: string;
@@ -7,5 +5,3 @@ export interface userInfoType {
   profile: string;
   first: boolean;
 }
-
-export type setUserInfoType = Dispatch<SetStateAction<userInfoType>>;

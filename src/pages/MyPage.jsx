@@ -32,39 +32,39 @@ const MyPage = () => {
 
   // {key, title, creator, platform, image}
 
-  useEffect(() => {
-    axios.get("/api/auth").then((res) => {
-      let data = res.data;
-      if (data.status === 401) {
-        navigate("/");
-      }
+  // useEffect(() => {
+  //   axios.get("/api/auth").then((res) => {
+  //     let data = res.data;
+  //     if (data.status === 401) {
+  //       navigate("/");
+  //     }
 
-      let id = data.id ? data.id : data.sub;
-      let platform = data.provider ? data.provider : "apple";
+  //     let id = data.id ? data.id : data.sub;
+  //     let platform = data.provider ? data.provider : "apple";
 
-      setUserInfo({
-        name: data.displayName
-          ? data.displayName
-          : "애플" + data.sub.split(".")[2],
-        id: id,
-        platform: platform,
-        profile: data.profile,
-        first: data.first,
-      });
+  //     setUserInfo({
+  //       name: data.displayName
+  //         ? data.displayName
+  //         : "애플" + data.sub.split(".")[2],
+  //       id: id,
+  //       platform: platform,
+  //       profile: data.profile,
+  //       first: data.first,
+  //     });
 
-      localStorage.setItem("clientId", id);
-      getPlaylist(id);
-      platformSelect(platform);
-      if (
-        data.first &&
-        location.state?.first === undefined &&
-        data.profile === "default"
-      ) {
-        navigate("/profile");
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //     localStorage.setItem("clientId", id);
+  //     getPlaylist(id);
+  //     platformSelect(platform);
+  //     if (
+  //       data.first &&
+  //       location.state?.first === undefined &&
+  //       data.profile === "default"
+  //     ) {
+  //       navigate("/profile");
+  //     }
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   //플레이 리스트 목록 가져오기
   const getPlaylist = (userId) => {
