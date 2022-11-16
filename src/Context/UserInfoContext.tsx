@@ -1,5 +1,11 @@
-import { createContext, useReducer, FunctionComponent, ReactNode } from "react";
-import { userInfoType, setUserInfoType } from "../types";
+import {
+  createContext,
+  useReducer,
+  FunctionComponent,
+  ReactNode,
+  Dispatch,
+} from "react";
+import { userInfoType } from "../types";
 
 const userDefaultInfo: userInfoType = {
   name: "",
@@ -9,11 +15,23 @@ const userDefaultInfo: userInfoType = {
   first: false,
 };
 
+interface resetAction {
+  type: string;
+  changeInfo: userInfoType;
+}
+
+type setUserInfoType = Dispatch<resetAction>;
+
 export const userInfoContext = createContext<userInfoType>(userDefaultInfo);
 export const setUserInfoContext = createContext<setUserInfoType>(() => null);
 
 const reducer = (state: userInfoType, action: any): userInfoType => {
-  return state;
+  switch (action.type) {
+    case "reset":
+      return action.changeInfo;
+    default:
+      return state;
+  }
 };
 
 const UserInfoProvider: FunctionComponent<{ children: ReactNode }> = ({
