@@ -22,6 +22,7 @@ export const ModalBox = styled.div`
   background: #ffffff;
   border-radius: 10px;
   gap: 10px;
+  
 `;
 
 export const Title = styled.h1`

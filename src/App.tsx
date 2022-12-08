@@ -16,7 +16,7 @@ import Header from "./components/Header/Header";
 // import Player from "./pages/Player";
 import MyPage from "./pages/MyPage";
 import Support from "./pages/Support";
-// import Profile from "./pages/Profile";
+import Profile from "./pages/Profile";
 // import Playlist from "./pages/Playlist";
 // import AddMusic from "./pages/AddMusic";
 // import GetArtistPage from "./components/Artists/GetArtistPage";
@@ -38,7 +38,7 @@ function App() {
           {/* <Route path="/charts" element={<Charts />} />
           <Route path="/player/:id" element={<Player />} /> */}
           <Route path="/mypage" element={<MyPage />} />
-          {/* <Route path="/profile" element={<Profile userInfo={userInfo} />} /> */}
+          <Route path="/profile" element={<Profile />} />
           <Route path="/support" element={<Support />} />
           {/* <Route path="/playlist" element={<Playlist />} />
           <Route path="/playlist/:id" element={<Playlist />} />
