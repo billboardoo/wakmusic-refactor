@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import {
-  userInfoContext,
-  setUserInfoContext,
-} from "../../atoms";
+import { userState } from "../../atoms";
+import { useRecoilState } from "recoil";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { NavList } from "./NavList";
@@ -12,6 +10,7 @@ import HeaderCircle from "../../assets/svgs/Etc/HeaderCircle.svg";
 import HeaderProfileEtc from "../../assets/svgs/Etc/HeaderProfileEtc.svg";
 import axios from "axios";
 import LoginModal from "../Login/LoginModal";
+import { userInfoType } from "../../types";
 
 const getUserInfo = () => {
   return axios.get("/api/auth");
@@ -29,8 +28,7 @@ function Header() {
       navigate("/mypage");
     },
   });
-  const userInfo = useContext(userInfoContext);
-  const userInfoDispatch = useContext(setUserInfoContext);
+  const [userInfo, setUserInfo] = useRecoilState<userInfoType>(userState);
   const [selectMenu, setSelectMenu] = useState<string>("");
   const [isModal, setIsModal] = useState<boolean>(false);
   const [isMenu, setIsMenu] = useState<boolean>(false);

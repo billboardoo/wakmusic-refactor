@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { userInfoContext } from "../atoms";
+import { userState } from "../atoms";
+import { useRecoilState } from "recoil";
 import { userInfoStateType } from "../types";
 import PageIntroduce from "../components/PageIntroduce";
 import FetchProfile from "../components/MyPage/FetchProfile";
@@ -19,7 +20,7 @@ import { Ellipse } from "../components/Utils";
 const MyPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { userInfo, setUserInfo } = useContext(userInfoContext);
+  const [userInfo, setUserInfo] = useRecoilState(userState);
   const [alertText, setAlertText] = useState("");
   const [platformText, setPlatformText] = useState("");
   const [addPlaylist, setAddPlaylist] = useState({
