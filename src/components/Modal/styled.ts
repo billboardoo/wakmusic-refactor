@@ -48,7 +48,7 @@ export const ModalContentBox = styled.div`
 `;
 
 export const ModalBackGroud = styled.div`
-  z-index: 9999;
+  z-index: 1;
   position: fixed;
   top: 0;
   display: flex;

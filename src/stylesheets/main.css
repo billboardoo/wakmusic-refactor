@@ -512,15 +512,6 @@
   border-top: 25px solid #00f3f3 !important;
 }
 
-.news-category {
-  color: white;
-  font-weight: 700;
-  position: absolute;
-  width: 308px;
-  text-align: center;
-  margin-top: -173px;
-  font-size: 14px;
-}
 
 .black {
   color: black !important;
@@ -542,8 +533,6 @@
   text-overflow: ellipsis;
   text-decoration: none;
 }
-
-
 
 #select-type {
   margin-top: -110px;

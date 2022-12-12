@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import PageIntroduce from "../components/PageIntroduce";
 import Footer from "../components/Footer";
 import InfiniteScroll from "../components/News/InfiniteScroll";
-import { useEffect } from "react";
 
 const News = () => {
   const componentDidMount = () => {
@@ -31,7 +30,7 @@ const _NewsBody = styled.div`
   background-color: #e3e5eb;
   display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
 `;
 
 export default News;

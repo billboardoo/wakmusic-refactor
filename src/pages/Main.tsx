@@ -2,7 +2,7 @@ import React from "react";
 import appLogo from "../images/logo-app.png";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
-import FetchNews from "../components/News/FetchNews";
+import FetchNews from "../components/Main/FetchNews";
 import FetchDaily from "../components/Charts/FetchDaily";
 
 class Main extends React.Component {
