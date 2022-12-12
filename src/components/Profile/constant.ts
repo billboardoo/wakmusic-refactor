@@ -1,4 +1,4 @@
-export const profileKinds = [
+export const profileKinds: string[] = [
   "bat",
   "ddong",
   "dulgi",

@@ -8,16 +8,16 @@ export const MainLayout = styled.div`
   flex-direction: column;
   align-items: center;
   animation: fadein 0.5s;
-`;
 
-export const ProfileLayout = styled.div`
-  width: 950px;
-  flex-wrap: wrap;
-  justify-content: center;
-  display: flex;
-  gap: 40px;
-  margin-top: -60px;
-  margin-bottom: 120px;
+  div {
+    width: 950px;
+    flex-wrap: wrap;
+    justify-content: center;
+    display: flex;
+    gap: 40px;
+    margin-top: -60px;
+    margin-bottom: 120px;
+  }
 `;
 
 export const ProfileThings = styled.img`

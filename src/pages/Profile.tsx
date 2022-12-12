@@ -9,19 +9,12 @@ const Profile = () => {
   return (
     <S.MainLayout>
       <PageIntroduce title="프로필을 선택하세요." />
-      <S.ProfileLayout>
+      <div>
         {profileKinds.map((item, index) => {
           const link = `https://wakmusic.xyz/static/profile/${item}.png`;
-          return (
-            <SetProfile
-
-              link={link}
-              item={item}
-              key={index}
-            />
-          );
+          return <SetProfile link={link} item={item} key={index} />;
         })}
-      </S.ProfileLayout>
+      </div>
       <Footer />
     </S.MainLayout>
   );
