@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../components/Footer";
 import PageIntroduce from "../components/PageIntroduce";
-import FetchTeams from "../components/Teams/FetchTeams";
+// import FetchTeams from "../components/Teams/FetchTeams";
 
 const Teams = () => {
   return (
@@ -18,7 +18,8 @@ const Teams = () => {
       <div className="teams-body">
         <PageIntroduce title="TEAMS" color="#ffffff" />
         <div id="teams-wrap">
-          <FetchTeams />
+
+          {/* <FetchTeams /> */}
         </div>
       </div>
       <Footer />
