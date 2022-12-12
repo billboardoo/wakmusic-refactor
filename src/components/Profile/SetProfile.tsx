@@ -1,17 +1,18 @@
 import React from "react";
 import axios from "axios";
-import { userInfoType } from "../../types/index";
+import { userState } from "../../atoms";
+import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import * as S from "./styled";
 
 export interface PropsType {
   link: string;
   item: string;
-  userInfo: userInfoType;
 }
 
 const SetProfile = (props: PropsType) => {
-  const { link, item, userInfo } = props;
+  const { link, item } = props;
+  const [userInfo, serUserInfo] = useRecoilState(userState);
   const navigate = useNavigate();
 
   const setUserProfile = () => {
