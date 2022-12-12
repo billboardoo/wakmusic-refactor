@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UserInfoProvider from "./Context/UserInfoContext";
+import { RecoilRoot } from "recoil";
 import GlobalStyle from "./GlobalStyle";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./stylesheets/index.css";
@@ -23,7 +23,7 @@ import Profile from "./pages/Profile";
 
 function App() {
   return (
-    <UserInfoProvider>
+    <RecoilRoot>
       <GlobalStyle />
       <Router>
         <Header />
@@ -46,7 +46,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-    </UserInfoProvider>
+    </RecoilRoot>
   );
 }
 

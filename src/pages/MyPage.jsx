@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { userInfoContext } from "../Context/UserInfoContext";
+import { userInfoContext } from "../atoms";
 import { userInfoStateType } from "../types";
 import PageIntroduce from "../components/PageIntroduce";
 import FetchProfile from "../components/MyPage/FetchProfile";

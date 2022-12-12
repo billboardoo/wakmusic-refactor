@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import {
   userInfoContext,
   setUserInfoContext,
-} from "../Context/UserInfoContext";
+} from "../atoms";
 import { profileKinds } from "../components/Profile/constant";
 import PageIntroduce from "../components/PageIntroduce";
 import SetProfile from "../components/Profile/SetProfile";

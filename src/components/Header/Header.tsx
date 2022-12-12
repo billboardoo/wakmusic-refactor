@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {
   userInfoContext,
   setUserInfoContext,
-} from "../../Context/UserInfoContext";
+} from "../../atoms";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { NavList } from "./NavList";
