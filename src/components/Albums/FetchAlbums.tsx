@@ -16,15 +16,16 @@ const FetchAlbums = () => {
 
   const changeType = (type: string) => {
     setType(type as albumsType);
+    setPlusNum(0);
   };
 
   const prevTime = () => {
     if (type == "month") {
-      if (toDay > 201502) {
+      if (toDay > 201501) {
         setPlusNum(plusNum - 1);
       }
     } else {
-      if (toDay > 2016) {
+      if (toDay > 2015) {
         setPlusNum(plusNum - 1);
       }
     }
@@ -97,7 +98,9 @@ const FetchAlbums = () => {
           </svg>
         </div>
       </div>
-      <_TimeTitle>{toDay.toString().replace(/(.{4})/g, "$1.")}</_TimeTitle>
+      <_TimeTitle>
+        {type == "month" ? toDay.toString().replace(/(.{4})/g, "$1.") : toDay}
+      </_TimeTitle>
       <div className="albums-body fadein">
         {/* <InfiniteScroll type={type} toDay={toDay} /> */}
       </div>
