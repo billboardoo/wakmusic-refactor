@@ -8,7 +8,7 @@ import "./stylesheets/artist.css";
 // import Main from "./pages/Main";
 import News from "./pages/News";
 // import Artists from "./pages/Artists";
-// import Albums from "./pages/Albums";
+import Albums from "./pages/Albums";
 // import Teams from "./pages/Teams";
 // import Charts from "./pages/Charts";
 import NotFound from "./pages/NotFound";
@@ -33,7 +33,7 @@ function App() {
           <Route path="/news" element={<News />} />
           {/* <Route path="/artists" element={<Artists />} /> */}
           <Route path="/artist/:id" element={<GetArtistPage />} />
-          {/* <Route path="/albums" element={<Albums />} />  */}
+          <Route path="/albums" element={<Albums />} /> 
           {/* <Route path="/teams" element={<Teams />} /> */}
           {/* <Route path="/charts" element={<Charts />} />
           <Route path="/player/:id" element={<Player />} /> */}
