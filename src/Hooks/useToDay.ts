@@ -6,9 +6,9 @@ const useToDay = (datePlusNumber: number, type: string) => {
     date = new Date(date.setMonth(date.getMonth() + datePlusNumber));
   }
 
-  var year = date.getFullYear();
+  var year = date.getFullYear().toString();
   var month = ("0" + (1 + date.getMonth())).slice(-2);
-  const toDay = type == "year" ? year : year + month;
+  const toDay = type == "year" ? parseInt(year) : parseInt(year + month);
 
   return { toDay };
 };

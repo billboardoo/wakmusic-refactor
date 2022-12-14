@@ -10,86 +10,38 @@ const FetchAlbums = () => {
   const [plusNum, setPlusNum] = useState<number>(0);
   const { toDay } = useToDay(plusNum, type);
 
+  let date = new Date();
+  const year = date.getFullYear();
+  const month = ("0" + (1 + date.getMonth())).slice(-2);
+
   const changeType = (type: string) => {
     setType(type as albumsType);
   };
 
   const prevTime = () => {
-    if (type === "month") {
-      if (time === "2015.01") {
-        return;
+    if (type == "month") {
+      if (toDay > 201502) {
+        setPlusNum(plusNum - 1);
       }
-
-      let year = timeObj.split(".")[0];
-      let month = timeObj.split(".")[1];
-      if (month === "01") {
-        year -= 1;
-        month = "12";
-      } else {
-        month--;
-      }
-      setTime(year + "." + (month < 10 ? "0" + month : month));
-
-      if (time === "2015.02")
-        document.getElementById("arrow-left-albums").className =
-          "arrow-inactive";
     } else {
-      if (time === "2015") {
-        return;
+      if (toDay > 2016) {
+        setPlusNum(plusNum - 1);
       }
-
-      let year = timeObj;
-      year -= 1;
-      setTime("" + year);
-
-      if (time === "2016")
-        document.getElementById("arrow-left-albums").className =
-          "arrow-inactive";
-    }
-
-    if (time - 1 !== getCurrentTime()) {
-      document.getElementById("arrow-right-albums").className = "arrow-active";
     }
   };
 
   const nextTime = () => {
-    if (type === "month") {
-      if (time === getCurrentTime()) {
-        return;
+    if (type == "month") {
+      if (toDay < parseInt(year + month)) {
+        setPlusNum(plusNum + 1);
       }
-
-      let year = timeObj.split(".")[0];
-      let month = timeObj.split(".")[1];
-      if (month === "12") {
-        year++;
-        month = "1";
-      } else {
-        month++;
-      }
-      setTime(year + "." + (month < 10 ? "0" + month : month));
-      if (year + "." + month === getCurrentTime())
-        document.getElementById("arrow-right-albums").className =
-          "arrow-inactive";
     } else {
-      if (time === getCurrentTime().slice(0, 4)) {
-        return;
+      if (toDay < year) {
+        setPlusNum(plusNum + 1);
       }
-
-      let year = timeObj;
-      year++;
-      setTime("" + year);
-
-      if (year + "" === getCurrentTime().slice(0, 4))
-        document.getElementById("arrow-right-albums").className =
-          "arrow-inactive";
-    }
-
-    if (time === "2015.01" || time === "2015") {
-      document.getElementById("arrow-left-albums").className = "arrow-active";
     }
   };
 
-  if (!time) return <div className="loading" />;
   return (
     <>
       <div id="select-type">
@@ -145,9 +97,9 @@ const FetchAlbums = () => {
           </svg>
         </div>
       </div>
-      <_TimeTitle>{time}</_TimeTitle>
+      <_TimeTitle>{toDay.toString().replace(/(.{4})/g, "$1.")}</_TimeTitle>
       <div className="albums-body fadein">
-        <InfiniteScroll type={type} toDay={toDay} />
+        {/* <InfiniteScroll type={type} toDay={toDay} /> */}
       </div>
     </>
   );
@@ -179,6 +131,7 @@ const _TimeTitle = styled.h2`
   color: #080f34;
   text-align: center;
   user-select: none;
+  margin: 0px;
 `;
 
 export default FetchAlbums;
