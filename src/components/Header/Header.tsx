@@ -29,14 +29,9 @@ function Header() {
     },
   });
   const [userInfo, setUserInfo] = useRecoilState<userInfoType>(userState);
-  const [selectMenu, setSelectMenu] = useState<string>("");
   const [isModal, setIsModal] = useState<boolean>(false);
   const [isMenu, setIsMenu] = useState<boolean>(false);
 
-  useEffect(() => {
-    const pathName: string = location.pathname;
-    setSelectMenu(pathName);
-  });
 
   if (isSuccess == false) {
     // userInfoDispatch({
@@ -96,7 +91,7 @@ function Header() {
                   style={{ textDecoration: "none" }}
                   key={index}
                 >
-                  <_NavBox current={selectMenu == item.path}>
+                  <_NavBox current={location.pathname == item.path}>
                     <img src={HeaderCircle} />
                     <button name={`${index}`}>{item.value}</button>
                   </_NavBox>
@@ -106,7 +101,7 @@ function Header() {
           </_NavLayout>
           <_BarRight>
             <Link to="/support" style={{ textDecoration: "none" }}>
-              <_NavBox current={selectMenu == "/support"}>
+              <_NavBox current={location.pathname == "/support"}>
                 <img src={HeaderCircle} />
                 <button>SUPPROT</button>
               </_NavBox>
