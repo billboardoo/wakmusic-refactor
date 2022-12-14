@@ -19,7 +19,7 @@ import Support from "./pages/Support";
 import Profile from "./pages/Profile";
 // import Playlist from "./pages/Playlist";
 // import AddMusic from "./pages/AddMusic";
-// import GetArtistPage from "./components/Artists/GetArtistPage";
+import GetArtistPage from "./components/Artists/GetArtistPage";
 
 function App() {
   return (
@@ -31,9 +31,9 @@ function App() {
           <Route path="/" element={<div style={{ height: "1000px" }} />} />
           {/* <Route path="/" element={<Main />} /> */}
           <Route path="/news" element={<News />} />
-          {/* <Route path="/artists" element={<Artists />} />
+          {/* <Route path="/artists" element={<Artists />} /> */}
           <Route path="/artist/:id" element={<GetArtistPage />} />
-          <Route path="/albums" element={<Albums />} />  */}
+          {/* <Route path="/albums" element={<Albums />} />  */}
           {/* <Route path="/teams" element={<Teams />} /> */}
           {/* <Route path="/charts" element={<Charts />} />
           <Route path="/player/:id" element={<Player />} /> */}

@@ -15,12 +15,6 @@ const InfiniteScroll = () => {
   const [start, setStart] = useState<number>(30);
   const [news, setNews] = useState<newsType[]>([]);
 
-  let categoryStr = {
-    focus: "이세돌 포커스",
-    wakmusic: "주간 왁뮤차트",
-    etc: "기타",
-  };
-
   const refineCatrgory = (id: number) => {
     switch (id) {
       case 0:
@@ -77,6 +71,7 @@ const InfiniteScroll = () => {
           </div>
         );
       })}
+      <span ref={ref}/>
     </>
   );
 };
