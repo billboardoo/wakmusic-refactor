@@ -7,45 +7,14 @@ type albumsType = "month" | "year";
 
 const FetchAlbums = () => {
   const [type, setType] = useState<albumsType>("month");
-  const [plusNum, setPlusNum] = useState(0);
-  const [time, setTime] = useState("");
+  const [plusNum, setPlusNum] = useState<number>(0);
   const { toDay } = useToDay(plusNum, type);
 
-  const getCurrentTime = () => {
-    let now = new Date();
-    let month = now.getMonth() + 1;
-    let time = now.getFullYear() + "" + (month < 10 ? "0" + month : month);
-    let result;
-    if (type === "month") {
-      result = time.slice(0, 4) + "." + time.slice(4);
-    } else result = time.slice(0, 4);
-    return result;
-  };
-
-  console.log(toDay);
-
-  useEffect(() => {
-    setTime(getCurrentTime());
-  }, [type]);
-
-  const changeType = (type: any) => {
-    let rev;
-    if (type === "month") rev = "year";
-    else rev = "month";
-    setType(type);
-    setTime(getCurrentTime());
-
-    const el = document.getElementById(type);
-    const revEl = document.getElementById(rev);
-    el.className = "type-selected";
-    revEl.className = "";
-
-    document.getElementById("arrow-left-albums").className = "arrow-active";
-    document.getElementById("arrow-right-albums").className = "arrow-inactive";
+  const changeType = (type: string) => {
+    setType(type as albumsType);
   };
 
   const prevTime = () => {
-    const timeObj = document.getElementById("albums-category").innerText;
     if (type === "month") {
       if (time === "2015.01") {
         return;
@@ -84,7 +53,6 @@ const FetchAlbums = () => {
   };
 
   const nextTime = () => {
-    const timeObj = document.getElementById("albums-category").innerText;
     if (type === "month") {
       if (time === getCurrentTime()) {
         return;
@@ -177,11 +145,9 @@ const FetchAlbums = () => {
           </svg>
         </div>
       </div>
-      <div className="albums-category-title" id="albums-category">
-        {time}
-      </div>
+      <_TimeTitle>{time}</_TimeTitle>
       <div className="albums-body fadein">
-        <InfiniteScroll type={type} time={time.replace(".", "")} />
+        <InfiniteScroll type={type} toDay={toDay} />
       </div>
     </>
   );
@@ -191,15 +157,28 @@ interface AlbumsTypeProps {
   onOff: boolean;
 }
 
-const _AlbumsType = styled.h4<AlbumsTypeProps>`
+const _AlbumsType = styled.button<AlbumsTypeProps>`
   text-align: center;
-  width: 65px;
+  width: 70px;
+  height: 35px;
+  border: none;
+  background-color: #e3e5eb;
+  font-family: "Pretendard";
   font-size: 20px;
   font-weight: ${(props) => (props.onOff ? 700 : 500)};
   color: ${(props) => (props.onOff ? "#202f61" : "#8c95af")};
   cursor: pointer;
-  padding-bottom: ${(props) => (props.onOff ? "3px" : "auto")};
-  border-bottom: ${(props) => (props.onOff ? "3px solid #00f3f3" : "none")};
+  padding-bottom: 3px;
+  border-bottom: ${(props) =>
+    props.onOff ? "3px solid #00f3f3" : "3px solid #e3e5eb"};
+`;
+
+const _TimeTitle = styled.h2`
+  font-size: 28px;
+  font-weight: 700;
+  color: #080f34;
+  text-align: center;
+  user-select: none;
 `;
 
 export default FetchAlbums;

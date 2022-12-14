@@ -512,7 +512,6 @@
   border-top: 25px solid #00f3f3 !important;
 }
 
-
 .black {
   color: black !important;
 }
@@ -539,30 +538,6 @@
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
-}
-
-#select-type > div {
-  text-align: center;
-  width: 65px;
-  font-size: 20px;
-  font-weight: 500;
-  color: #8c95af;
-  cursor: pointer;
-}
-
-.type-selected {
-  font-weight: 700 !important;
-  color: #202f61 !important;
-  padding-bottom: 3px;
-  border-bottom: 3px solid #00f3f3;
-}
-
-.albums-category-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #080f34;
-  text-align: center;
-  user-select: none;
 }
 
 .arrow-albums {
