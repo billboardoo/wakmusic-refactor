@@ -3,31 +3,39 @@ import Footer from "../Footer";
 import styled from "styled-components";
 import logo from "../../images/enter.png";
 
+interface timeType {
+  hour: number;
+  min: number;
+  second: number;
+}
+
 interface anniversaryType {
-  day: string;
-  time: string;
+  day: number;
+  time: timeType;
 }
 
 const Timer = () => {
   const [anniversary, setAnniversary] = useState<anniversaryType>({
-    day: "",
-    time: "",
+    day: 0,
+    time: {
+      hour: 0,
+      min: 0,
+      second: 0,
+    },
   });
 
   const setTime = () => {
     const start = new Date("2021, 8, 26").getTime();
     const now = new Date().getTime();
     let result = Math.abs(now - start);
-    let days = result / (1000 * 60 * 60 * 24);
-    let hours = (result % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
-    let minutes = (result % (1000 * 60 * 60)) / (1000 * 60);
-    let seconds = (result % (1000 * 60)) / 1000;
 
     setAnniversary({
-      day: `+${Math.floor(days)}일`,
-      time: `${Math.floor(hours)}시간 ${
-        minutes < 10 ? "0" + Math.floor(minutes) : Math.floor(minutes)
-      }분 ${seconds < 10 ? "0" + Math.floor(seconds) : Math.floor(seconds)}초`,
+      day: Math.floor(result / (1000 * 60 * 60 * 24)),
+      time: {
+        hour: Math.floor((result % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        min: Math.floor((result % (1000 * 60 * 60)) / (1000 * 60)),
+        second: Math.floor((result % (1000 * 60)) / 1000),
+      },
     });
   };
 
@@ -42,8 +50,11 @@ const Timer = () => {
     <div id="timer-wrap" className="fadein">
       <img src={logo} alt="" />
       <div>이세계아이돌 결성일로부터</div>
-      <_Day>{anniversary.day}</_Day>
-      <_Time>{anniversary.time}</_Time>
+      <_Day>+{anniversary.day}일</_Day>
+      <_Time>
+        {anniversary.time.hour}시간 {anniversary.time.min}분{" "}
+        {anniversary.time.second}초
+      </_Time>
       <Footer />
     </div>
   );
