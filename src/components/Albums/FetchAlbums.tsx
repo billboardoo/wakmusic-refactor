@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import useToDay from "../../Hooks/useToDay";
+import AlbumsArrow from "../../assets/svgs/Etc/AlbumsArrow";
 import InfiniteScroll from "./InfiniteScroll";
 
 type albumsType = "month" | "year";
@@ -25,10 +26,18 @@ const FetchAlbums = () => {
     if (type == "month") {
       if (toDay > 201501) {
         setPlusNum(plusNum - 1);
+        setArrowState("all");
+        if (toDay == 201502) {
+          setArrowState("right");
+        }
       }
     } else {
       if (toDay > 2015) {
         setPlusNum(plusNum - 1);
+        setArrowState("all");
+        if (toDay == 2016) {
+          setArrowState("right");
+        }
       }
     }
   };
@@ -37,10 +46,18 @@ const FetchAlbums = () => {
     if (type == "month") {
       if (toDay < parseInt(year + month)) {
         setPlusNum(plusNum + 1);
+        setArrowState("all");
+        if (toDay == parseInt(year + month) - 1) {
+          setArrowState("left");
+        }
       }
     } else {
       if (toDay < year) {
         setPlusNum(plusNum + 1);
+        setArrowState("all");
+        if (toDay == year - 1) {
+          setArrowState("left");
+        }
       }
     }
   };
@@ -58,51 +75,23 @@ const FetchAlbums = () => {
           연도별
         </_AlbumsType>
       </div>
-      <div className="select-bar-arrow arrow-albums">
-        <div
-          className="arrow-inactive"
-          id="arrow-right-albums"
-          onClick={() => nextTime()}
-        >
-          <svg
-            width="10"
-            height="18"
-            viewBox="0 0 10 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M9.12403 1.45753L1.58156 9L9.12403 16.5425"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-        <div
-          className="arrow-active"
-          id="arrow-left-albums"
-          onClick={() => prevTime()}
-        >
-          <svg
-            width="10"
-            height="18"
-            viewBox="0 0 10 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M9.12403 1.45753L1.58156 9L9.12403 16.5425"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-      </div>
-      <_TimeTitle>
-        {type == "month" ? toDay.toString().replace(/(.{4})/g, "$1.") : toDay}
-      </_TimeTitle>
+      <_TitleLayout>
+        <span onClick={prevTime}>
+          <AlbumsArrow
+            direction="left"
+            state={arrowState == "all" || arrowState == "left"}
+          />
+        </span>
+        <_TimeTitle>
+          {type == "month" ? toDay.toString().replace(/(.{4})/g, "$1.") : toDay}
+        </_TimeTitle>
+        <span onClick={nextTime}>
+          <AlbumsArrow
+            direction="right"
+            state={arrowState == "all" || arrowState == "right"}
+          />
+        </span>
+      </_TitleLayout>
       <div className="albums-body fadein">
         {/* <InfiniteScroll type={type} toDay={toDay} /> */}
       </div>
@@ -130,7 +119,15 @@ const _AlbumsType = styled.button<AlbumsTypeProps>`
     props.onOff ? "3px solid #00f3f3" : "3px solid #e3e5eb"};
 `;
 
+const _TitleLayout = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  margin: 0px;
+`;
+
 const _TimeTitle = styled.h2`
+  width: fit-content;
   font-size: 28px;
   font-weight: 700;
   color: #080f34;
