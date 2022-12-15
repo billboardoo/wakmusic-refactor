@@ -20,6 +20,7 @@ const FetchAlbums = () => {
   const changeType = (type: string) => {
     setType(type as albumsType);
     setPlusNum(0);
+    setArrowState("left");
   };
 
   const prevTime = () => {
