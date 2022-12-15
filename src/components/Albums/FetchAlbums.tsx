@@ -4,10 +4,12 @@ import useToDay from "../../Hooks/useToDay";
 import InfiniteScroll from "./InfiniteScroll";
 
 type albumsType = "month" | "year";
+type arrowType = "all" | "left" | "right";
 
 const FetchAlbums = () => {
   const [type, setType] = useState<albumsType>("month");
   const [plusNum, setPlusNum] = useState<number>(0);
+  const [arrowState, setArrowState] = useState<arrowType>("left");
   const { toDay } = useToDay(plusNum, type);
 
   let date = new Date();
