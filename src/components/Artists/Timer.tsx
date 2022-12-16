@@ -14,7 +14,7 @@ interface anniversaryType {
   time: timeType;
 }
 
-const Timer = () => {
+const Timer = (): JSX.Element => {
   const [anniversary, setAnniversary] = useState<anniversaryType>({
     day: 0,
     time: {

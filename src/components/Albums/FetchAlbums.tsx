@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import useToDay from "../../Hooks/useToDay";
 import AlbumsArrow from "../../assets/svgs/Etc/AlbumsArrow";
@@ -7,7 +7,7 @@ import InfiniteScroll from "./InfiniteScroll";
 type albumsType = "month" | "year";
 type arrowType = "all" | "left" | "right";
 
-const FetchAlbums = () => {
+const FetchAlbums = (): JSX.Element => {
   const [type, setType] = useState<albumsType>("month");
   const [plusNum, setPlusNum] = useState<number>(0);
   const [arrowState, setArrowState] = useState<arrowType>("left");
