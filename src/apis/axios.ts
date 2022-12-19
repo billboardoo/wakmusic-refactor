@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: "https://wakmusic.xyz/",
+  baseURL: "http://localhost:3000",
   timeout: 10000,
 });

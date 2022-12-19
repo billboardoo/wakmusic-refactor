@@ -11,8 +11,8 @@ const Profile = () => {
       <PageIntroduce title="프로필을 선택하세요." />
       <div>
         {profileKinds.map((item, index) => {
-          const link = `https://wakmusic.xyz/static/profile/${item}.png`;
-          return <SetProfile link={link} item={item} key={index} />;
+          const profileImgLink = `https://wakmusic.xyz/static/profile/${item}.png`;
+          return <SetProfile profileImgLink={profileImgLink} item={item} key={index} />;
         })}
       </div>
       <Footer />

@@ -1,32 +1,32 @@
 import React from "react";
-import axios from "axios";
+import postProfile from "../../apis/profile";
 import { userState } from "../../atoms";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import * as S from "./styled";
 
-export interface PropsType {
-  link: string;
+interface PropsType {
+  profileImgLink: string;
   item: string;
 }
 
 const SetProfile = (props: PropsType) => {
-  const { link, item } = props;
+  const { profileImgLink, item } = props;
   const [userInfo, serUserInfo] = useRecoilState(userState);
   const navigate = useNavigate();
 
   const setUserProfile = () => {
-    axios
-      .post("/api/profile/set", {
-        clientId: userInfo.id,
-        image: item,
-      })
-      .then(() => {
-        navigate("/mypage", { state: { first: false } });
-      });
+    postProfile({
+      clientId: userInfo.id,
+      image: item,
+    }).then(() => {
+      navigate("/mypage", { state: { first: false } });
+    });
   };
 
-  return <S.ProfileThings onClick={setUserProfile} src={link} key={item} />;
+  return (
+    <S.ProfileThings onClick={setUserProfile} src={profileImgLink} key={item} />
+  );
 };
 
 export default SetProfile;
