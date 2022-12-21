@@ -82,7 +82,7 @@ const _TitleLayout = styled.div`
 `;
 
 const _TimeTitle = styled.h2`
-  width: fit-content;
+  width: 130px;
   font-size: 28px;
   font-weight: 700;
   color: #080f34;
