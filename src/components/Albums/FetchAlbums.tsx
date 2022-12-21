@@ -1,67 +1,21 @@
 import React, { useState } from "react";
+import { albumsType, arrowType } from "../../types/albums";
 import styled from "styled-components";
 import useToDay from "../../Hooks/useToDay";
+import useAlbums from "../../Hooks/useAlbums";
 import AlbumsArrow from "../../assets/svgs/Etc/AlbumsArrow";
 import InfiniteScroll from "./InfiniteScroll";
-
-type albumsType = "month" | "year";
-type arrowType = "all" | "left" | "right";
 
 const FetchAlbums = (): JSX.Element => {
   const [type, setType] = useState<albumsType>("month");
   const [plusNum, setPlusNum] = useState<number>(0);
-  const [arrowState, setArrowState] = useState<arrowType>("left");
   const { toDay } = useToDay(plusNum, type);
-
-  let date = new Date();
-  const year = date.getFullYear();
-  const month = ("0" + (1 + date.getMonth())).slice(-2);
-
-  const changeType = (type: string) => {
-    setType(type as albumsType);
-    setPlusNum(0);
-    setArrowState("left");
-  };
-
-  const prevTime = () => {
-    if (type == "month") {
-      if (toDay > 201501) {
-        setPlusNum(plusNum - 1);
-        setArrowState("all");
-        if (toDay == 201502) {
-          setArrowState("right");
-        }
-      }
-    } else {
-      if (toDay > 2015) {
-        setPlusNum(plusNum - 1);
-        setArrowState("all");
-        if (toDay == 2016) {
-          setArrowState("right");
-        }
-      }
-    }
-  };
-
-  const nextTime = () => {
-    if (type == "month") {
-      if (toDay < parseInt(year + month)) {
-        setPlusNum(plusNum + 1);
-        setArrowState("all");
-        if (toDay == parseInt(year + month) - 1) {
-          setArrowState("left");
-        }
-      }
-    } else {
-      if (toDay < year) {
-        setPlusNum(plusNum + 1);
-        setArrowState("all");
-        if (toDay == year - 1) {
-          setArrowState("left");
-        }
-      }
-    }
-  };
+  const { arrowState, changeType, nextTime, prevTime } = useAlbums({
+    setPlusNum: setPlusNum,
+    type: type,
+    setType: setType,
+    toDay: toDay,
+  });
 
   return (
     <>
